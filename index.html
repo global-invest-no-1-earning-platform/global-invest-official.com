@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <title>Global invest PLATFORM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -514,9 +514,9 @@
                     <i class="fa-solid fa-clock"></i> <span id="salaryCountdownTimer">Calculating payout countdown...</span>
                 </div>
 
-                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones to unlock your high-paying recurring salary!</p>
+                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones (members must activate a VIP package to count) to unlock your salary!</p>
                 <div style="background: #e3f2fd; padding:15px; border-radius:15px; margin-bottom: 20px;">
-                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Total Registered Invites</p>
+                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites (With Plan)</p>
                     <h2 style="color: var(--primary); font-size: 32px; font-weight: 800;" id="ie_activeInvites">0</h2>
                     <p style="font-size: 12px; margin-top:5px; color:#555; font-weight: bold;" id="ie_salaryStatus">Salary Status: Locked</p>
                 </div>
@@ -688,7 +688,7 @@
                 <!-- Dynamic Invite Milestones and Salary Configuration Card -->
                 <div class="admin-card">
                     <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-gift"></i> Salary Tiers & Frequency Settings</h3>
-                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites, salary amounts, aur active salary frequency set karein.</p>
+                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites (with active plans), salary amounts, aur active salary frequency set karein.</p>
                     
                     <!-- Frequency Selector -->
                     <div class="input-group">
@@ -935,7 +935,6 @@
             const decrypted = decrypt(cipher, SECURITY_KEY_22);
             if (decrypted === "true") return true;
             if (decrypted === "false") return false;
-            // FIXED ERROR: Checking if decrypted is a valid number before casting, preventing NaN/toString errors on null/undefined
             if (decrypted !== null && decrypted !== "" && !isNaN(decrypted)) return Number(decrypted);
             return decrypted;
         }
@@ -1016,12 +1015,10 @@
             return update(ref(db, 'users/' + uid), encUpdates);
         }
 
-        // --- BYPASSED AUTOMATIC BLOCKS ---
         function executeFirewallChain(actionType, detail = "") {
             return true; 
         }
 
-        // ================= UPDATE APP SYSTEM =================
         window.manualUpdateApp = () => {
             loader.innerHTML = '<i class="fa-solid fa-rotate fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Updating App & Clearing Cache...</p>';
             loader.classList.remove('hidden');
@@ -1031,11 +1028,10 @@
             }, 1000);
         };
 
-        // Auto Update Check (Every 2 Hours = 7200000 ms, or adjustable)
         function checkAutoAppUpdate() {
             let lastUpdate = localStorage.getItem('last_app_update');
             let now = Date.now();
-            let twoHoursMs = 2 * 60 * 60 * 1000; // 2 Hours
+            let twoHoursMs = 2 * 60 * 60 * 1000;
 
             if (!lastUpdate) {
                 localStorage.setItem('last_app_update', now);
@@ -1044,10 +1040,8 @@
                 window.location.reload(true);
             }
         }
-        // Run auto update check every 5 minutes in background
         setInterval(checkAutoAppUpdate, 5 * 60 * 1000);
 
-        // Dynamic Theme switchers
         window.toggleTheme = () => {
             const body = document.body;
             const toggleIcon = document.getElementById('themeToggle');
@@ -1063,17 +1057,16 @@
             }
         };
 
-        // Dynamic 30-Second Rainbow Cycling Theme
         let rainbowInterval = null;
         let countdownInterval = null;
         let currentRainbowIndex = 0;
         const rainbowThemes = [
-            { bg: "#e3f2fd", white: "#ffffff", text: "#0d47a1", primary: "#1565c0", gray: "#555" }, // Soft Blue
-            { bg: "#f3e5f5", white: "#ffffff", text: "#4a148c", primary: "#7b1fa2", gray: "#555" }, // Soft Lavender
-            { bg: "#e8f5e9", white: "#ffffff", text: "#1b5e20", primary: "#2e7d32", gray: "#555" }, // Light Emerald Green
-            { bg: "#fff8e1", white: "#ffffff", text: "#e65100", primary: "#f57c00", gray: "#555" }, // Warm Amber Gold
-            { bg: "#fce4ec", white: "#ffffff", text: "#880e4f", primary: "#c2185b", gray: "#555" }, // Subtle Rose Pink
-            { bg: "#121212", white: "#1e1e1e", text: "#e0e0e0", primary: "#2979ff", gray: "#a0a0a0" }  // Solid Dark Mode Theme
+            { bg: "#e3f2fd", white: "#ffffff", text: "#0d47a1", primary: "#1565c0", gray: "#555" },
+            { bg: "#f3e5f5", white: "#ffffff", text: "#4a148c", primary: "#7b1fa2", gray: "#555" },
+            { bg: "#e8f5e9", white: "#ffffff", text: "#1b5e20", primary: "#2e7d32", gray: "#555" },
+            { bg: "#fff8e1", white: "#ffffff", text: "#e65100", primary: "#f57c00", gray: "#555" },
+            { bg: "#fce4ec", white: "#ffffff", text: "#880e4f", primary: "#c2185b", gray: "#555" },
+            { bg: "#121212", white: "#1e1e1e", text: "#e0e0e0", primary: "#2979ff", gray: "#a0a0a0" }
         ];
 
         window.toggleRainbowTheme = () => {
@@ -1159,7 +1152,6 @@
             }
         }
 
-        // Real-time Anti-Bot Scanner (One IP Address = Max 1 Account check)
         async function checkIPAntiBot(uid) {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
@@ -1547,7 +1539,6 @@
                             userData.lastAdDate = todayStr;
                         }
 
-                        // FIXED ERROR: Ensuring numeric values parsed cleanly before calling .toFixed()
                         let safeBal = Number(userData.balance || 0);
                         document.getElementById('userBal').innerText = safeBal.toFixed(2);
                         document.getElementById('w_balShow').innerText = safeBal.toFixed(2);
@@ -2083,9 +2074,37 @@
             }
         }
 
-        window.renderInviteEarnPage = () => {
+        // CALCULATE VALID ACTIVE INVITES (REFERRED MEMBERS WITH ACTIVE PACKAGES / totalInvest > 0)
+        async function getValidActiveInvitesCount(userCode) {
+            if (!userCode) return 0;
+            try {
+                const snap = await get(ref(db, 'users'));
+                if (!snap.exists()) return 0;
+                let validCount = 0;
+                const rawUsers = snap.val();
+                for (let k in rawUsers) {
+                    let u = decryptUserObject(rawUsers[k]);
+                    if (u.referredByCode === userCode) {
+                        let hasPlan = (Number(u.totalInvest || 0) > 0) || (u.activePlans && Object.keys(u.activePlans).length > 0);
+                        if (hasPlan) {
+                            validCount++;
+                        }
+                    }
+                }
+                return validCount;
+            } catch (err) {
+                console.error("Error calculating valid invites:", err);
+                return Number(userData.totalInvites || 0);
+            }
+        }
+
+        window.renderInviteEarnPage = async () => {
+            loader.classList.remove('hidden');
             const is = globalSettings.inviteSettings || defaultInviteSettings;
-            const userInvites = Number(userData.totalInvites || 0);
+            
+            // Only count invites who have activated a VIP package (totalInvest > 0 or activePlans exists)
+            const userInvites = await getValidActiveInvitesCount(userData.inviteCode);
+            loader.classList.add('hidden');
             
             document.getElementById('ie_activeInvites').innerText = userInvites;
             
@@ -2122,7 +2141,7 @@
                     salaryStatusEl.innerHTML = `<button class="btn-primary" style="padding: 10px; font-size:12px; margin-top:5px; max-width: 250px; margin-left: auto; margin-right: auto;" onclick="claimDailySalary()"><i class="fa-solid fa-hand-holding-dollar"></i> Claim Rs ${activeTier.amt} ${salaryLabel}</button>`;
                 }
             } else {
-                salaryStatusEl.innerHTML = `<span style="color: red; font-weight: bold;">Salary Locked (Need min ${tiers[0].req} invites)</span>`;
+                salaryStatusEl.innerHTML = `<span style="color: red; font-weight: bold;">Salary Locked (Need min ${tiers[0].req} active members with plans)</span>`;
             }
             
             const list = document.getElementById('milestonesList');
@@ -2143,7 +2162,7 @@
                 list.innerHTML += `
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; background: #fff; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
                         <div>
-                            <span style="font-size: 13px; font-weight: 600; color: var(--text);"><i class="fa-solid fa-users" style="color: var(--secondary); margin-right: 5px;"></i> Tier ${index + 1}: ${t.req} Invites</span>
+                            <span style="font-size: 13px; font-weight: 600; color: var(--text);"><i class="fa-solid fa-users" style="color: var(--secondary); margin-right: 5px;"></i> Tier ${index + 1}: ${t.req} Active Invites</span>
                             <p style="font-size: 11px; color: var(--gray);">${salaryLabel}: Rs ${t.amt}</p>
                         </div>
                         <div>
@@ -2157,6 +2176,7 @@
         window.claimDailySalary = async () => {
             if (!executeFirewallChain("claim_salary")) return;
             
+            loader.classList.remove('hidden');
             const is = globalSettings.inviteSettings || defaultInviteSettings;
             const salaryType = is.salary_type || "monthly";
             const salaryLabel = salaryType === "daily" ? "Daily Salary" : salaryType === "weekly" ? "Weekly Salary" : "Monthly Salary";
@@ -2174,7 +2194,7 @@
                 { req: Number(is.t10_inv || 300), amt: Number(is.t10_amt || 4800) }
             ];
 
-            let userInvites = Number(userData.totalInvites || 0);
+            let userInvites = await getValidActiveInvitesCount(userData.inviteCode);
             
             let activeTier = null;
             for (let i = tiers.length - 1; i >= 0; i--) {
@@ -2185,15 +2205,16 @@
             }
             
             if (!activeTier) {
-                return alert(`You need at least ${tiers[0].req} invites to claim salary!`);
+                loader.classList.add('hidden');
+                return alert(`You need at least ${tiers[0].req} active invites (with packages) to claim salary!`);
             }
             
             const periodKey = getSalaryPeriodKey(salaryType);
             if (userData.lastSalaryDate === periodKey) {
+                loader.classList.add('hidden');
                 return alert(`You have already claimed this period's salary! Please wait for the next period.`);
             }
             
-            loader.classList.remove('hidden');
             try {
                 let newBal = (Number(userData.balance) || 0) + activeTier.amt;
                 await dbUpdateUser(currentUser.uid, {
@@ -3064,7 +3085,7 @@
                     snap.forEach(child => {
                         let u = decryptUserObject(child.val());
                         if(u.referredByCode === userData.inviteCode) {
-                            let status = (u.totalInvest > 0) ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-warning">Free</span>';
+                            let status = (u.totalInvest > 0 || (u.activePlans && Object.keys(u.activePlans).length > 0)) ? '<span class="badge bg-success">Active (Counts for Salary)</span>' : '<span class="badge bg-warning">Free (No Plan Active)</span>';
                             let date = new Date(u.createdAt).toLocaleDateString();
                             html += `<div class="h-item"><div><h4>${u.name}</h4><p>Joined: ${date}</p></div>${status}</div>`;
                         }
