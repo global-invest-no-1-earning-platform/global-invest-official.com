@@ -62,7 +62,7 @@
 
         .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px 15px; }
         .menu-item { text-align: center; cursor: pointer; }
-        .menu-icon { background: var(--white); width: 55px; height: 55px; border-radius: 15px; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .menu-icon { background: var(--white); width: 55px; height: 55px; border-radius: 15px; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: relative; }
         .menu-item span { font-size: 10px; font-weight: 600; color: #555; }
 
         .section-title { padding: 15px; font-weight: 700; color: var(--text); font-size: 18px; }
@@ -138,6 +138,39 @@
         .admin-tab-content.active { display: block; }
         .stat-box { background: #333; color: white; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 10px; }
         .stat-box h2 { color: #58e596; }
+
+        /* ================= 3D GLOW BADGES STYLING ================= */
+        .glow-update-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: #ff1744;
+            color: white;
+            font-size: 8px;
+            font-weight: 900;
+            padding: 1px 4px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(255, 23, 68, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: glow4colors 4s infinite, float3d 2.5s ease-in-out infinite;
+            z-index: 10;
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            white-space: nowrap;
+        }
+        @keyframes glow4colors {
+            0% { background-color: #ff1744; box-shadow: 0 0 8px #ff1744, inset 0 0 3px #ff1744; }
+            25% { background-color: #00e676; box-shadow: 0 0 8px #00e676, inset 0 0 3px #00e676; }
+            50% { background-color: #2979ff; box-shadow: 0 0 8px #2979ff, inset 0 0 3px #2979ff; }
+            75% { background-color: #ffea00; box-shadow: 0 0 8px #ffea00, inset 0 0 3px #ffea00; color: #000; }
+            100% { background-color: #ff1744; box-shadow: 0 0 8px #ff1744, inset 0 0 3px #ff1744; color: #fff; }
+        }
+        @keyframes float3d {
+            0% { transform: translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateY(-2px) scale(1.08) rotate(2deg); }
+            100% { transform: translateY(0) scale(1) rotate(0deg); }
+        }
 
         /* ================= DARK THEME STYLING ================= */
         body.dark-theme {
@@ -294,7 +327,12 @@
                 <i class="fa-solid fa-headset" style="color:var(--primary); font-size: 20px; margin-right: 15px; cursor: pointer;" onclick="showPage('supportPage')"></i>
                 <!-- Rainbow color cycling button -->
                 <i id="rainbowToggle" class="fa-solid fa-wand-magic-sparkles" style="color:var(--gray); font-size: 20px; margin-right: 15px; cursor: pointer;" onclick="toggleRainbowTheme()"></i>
-                <i class="fa-solid fa-bell" style="color:var(--primary); font-size: 20px; cursor: pointer;" onclick="openRulebookManual()"></i>
+                
+                <!-- Glowing Notification Bell -->
+                <span style="position: relative; display: inline-block;">
+                    <i class="fa-solid fa-bell" style="color:var(--primary); font-size: 20px; cursor: pointer;" onclick="openRulebookManual()"></i>
+                    <span class="glow-update-badge hidden" id="bellUpdateBadge" style="top: -6px; right: -6px; font-size: 6px; padding: 1px 3px;">UPDATE</span>
+                </span>
             </div>
         </header>
 
@@ -332,11 +370,28 @@
                     <span>Support</span>
                 </div>
                 <div class="menu-item" onclick="showPage('adsPage')"><div class="menu-icon"><i class="fa-solid fa-play"></i></div><span>Daily Ads</span></div>
-                <div class="menu-item" onclick="showPage('promoPage')"><div class="menu-icon"><i class="fa-solid fa-ticket"></i></div><span>Promo</span></div>
-                <div class="menu-item" onclick="showPage('historyPage')"><div class="menu-icon"><i class="fa-solid fa-receipt"></i></div><span>History</span></div>
                 
+                <!-- Glowing Promo Menu Item -->
+                <div class="menu-item" onclick="showPage('promoPage')">
+                    <div class="menu-icon">
+                        <i class="fa-solid fa-ticket"></i>
+                        <span class="glow-update-badge hidden" id="promoUpdateBadge">UPDATE</span>
+                    </div>
+                    <span>Promo</span>
+                </div>
+                
+                <div class="menu-item" onclick="showPage('historyPage')"><div class="menu-icon"><i class="fa-solid fa-receipt"></i></div><span>History</span></div>
                 <div class="menu-item" onclick="showPage('teamPage')"><div class="menu-icon"><i class="fa-solid fa-users-viewfinder"></i></div><span>Team</span></div>
-                <div class="menu-item" onclick="clickInviteEarn(this)"><div class="menu-icon" style="color:#e91e63;"><i class="fa-solid fa-hand-holding-dollar"></i></div><span id="inviteEarnMenuText">Salary</span></div>
+                
+                <!-- Glowing Salary Menu Item -->
+                <div class="menu-item" onclick="clickInviteEarn(this)">
+                    <div class="menu-icon" style="color:#e91e63;">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                        <span class="glow-update-badge hidden" id="salaryUpdateBadge">UPDATE</span>
+                    </div>
+                    <span id="inviteEarnMenuText">Salary</span>
+                </div>
+                
                 <div class="menu-item" onclick="showPage('profilePage')"><div class="menu-icon"><i class="fa-solid fa-gear"></i></div><span>Setting</span></div>
                 <div class="menu-item" onclick="showPage('aboutPage')"><div class="menu-icon"><i class="fa-solid fa-circle-info"></i></div><span>About</span></div>
                 
@@ -1186,7 +1241,6 @@
         window.openRulebookManual = () => {
             document.getElementById('rulebookModal').classList.remove('hidden');
         };
-        
         window.openRbLink = () => {
             const linkText = document.getElementById('rbLinkText').innerText;
             if (linkText && linkText !== "Loading...") {
@@ -1273,6 +1327,14 @@
         setInterval(updateSalaryCountdown, 1000);
 
         window.onload = () => {
+            // Check for glow badges (1 week active limit starting Aug 8, 2026 to Aug 15, 2026)
+            const expiryTime = 1786819200000;
+            if (Date.now() < expiryTime) {
+                document.getElementById('promoUpdateBadge')?.classList.remove('hidden');
+                document.getElementById('salaryUpdateBadge')?.classList.remove('hidden');
+                document.getElementById('bellUpdateBadge')?.classList.remove('hidden');
+            }
+
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-theme');
@@ -2175,25 +2237,48 @@
             list.innerHTML = '';
             
             tiers.forEach((t, index) => {
+                let progressPercent = Math.min(100, (userInvites / t.req) * 100);
                 let statusBadge = '';
+                let cardBg = 'background: var(--white);';
+                let borderStyle = 'border-left: 4px solid #eee;';
+
                 if (userInvites >= t.req) {
                     if (activeTier && activeTier.req === t.req) {
-                        statusBadge = `<span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold;">Active Tier</span>`;
+                        statusBadge = `<span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; box-shadow: 0 0 8px rgba(0,200,83,0.4);"><i class="fa-solid fa-circle-check"></i> Active Tier</span>`;
+                        cardBg = 'background: #f1f8e9;';
+                        borderStyle = 'border-left: 4px solid var(--success);';
                     } else {
-                        statusBadge = `<span style="background: #e53935; color: white; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold;">Expired</span>`;
+                        statusBadge = `<span style="background: #cfd8dc; color: #37474f; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold;">Unlocked</span>`;
+                        borderStyle = 'border-left: 4px solid #90a4ae;';
                     }
                 } else {
-                    statusBadge = `<span style="background: #e0e0e0; color: #888; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold;">Locked (${userInvites}/${t.req})</span>`;
+                    statusBadge = `<span style="background: #f5f5f5; color: #888; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; border: 1px solid #e0e0e0;">Locked (${userInvites}/${t.req})</span>`;
                 }
                 
                 list.innerHTML += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; background: #fff; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
-                        <div>
-                            <span style="font-size: 13px; font-weight: 600; color: var(--text);"><i class="fa-solid fa-users" style="color: var(--secondary); margin-right: 5px;"></i> Tier ${index + 1}: ${t.req} Active Invites</span>
-                            <p style="font-size: 11px; color: var(--gray);">${salaryLabel}: Rs ${t.amt}</p>
+                    <div style="${cardBg} ${borderStyle} padding: 15px; margin-bottom: 12px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: all 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <span style="font-size: 14px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 6px;">
+                                    <i class="fa-solid fa-users" style="color: var(--secondary);"></i> Tier ${index + 1}: ${t.req} Active Invites
+                                </span>
+                                <p style="font-size: 12px; color: var(--gray); font-weight: 600; margin-top: 2px;">
+                                    ${salaryLabel}: <span style="color: var(--secondary); font-weight: 700;">Rs ${t.amt}</span>
+                                </p>
+                            </div>
+                            <div>
+                                ${statusBadge}
+                            </div>
                         </div>
-                        <div>
-                            ${statusBadge}
+                        
+                        <!-- Premium Linear Progress Bar Container -->
+                        <div style="width: 100%; background: #e0e0e0; height: 8px; border-radius: 10px; overflow: hidden; position: relative;">
+                            <div style="width: ${progressPercent}%; background: linear-gradient(90deg, var(--secondary), var(--accent)); height: 100%; border-radius: 10px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--gray); margin-top: 5px; font-weight: bold;">
+                            <span>Progress: ${userInvites} / ${t.req} members completed</span>
+                            <span>${progressPercent.toFixed(0)}%</span>
                         </div>
                     </div>
                 `;
