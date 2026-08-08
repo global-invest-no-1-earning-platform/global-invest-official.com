@@ -245,10 +245,11 @@
                 <p>Loading rules...</p>
             </div>
             
-            <!-- Link Sharing Add-on -->
-            <div id="rbLinkContainer" class="hidden" style="margin-bottom: 20px; background: #f0f2f5; padding: 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; border: 1px dashed var(--primary);">
-                <span id="rbLinkText" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 70%; color: var(--secondary); font-weight: bold;">Loading...</span>
-                <button onclick="copyRbLink()" style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: bold;"><i class="fa-solid fa-copy"></i> Copy</button>
+            <!-- Link Sharing Add-on - Updated with 'Open' option button in blue color and hidden link text -->
+            <div id="rbLinkContainer" class="hidden" style="margin-bottom: 20px; background: #e3f2fd; padding: 12px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1.5px dashed var(--accent);">
+                <a id="rbLinkOpenBtn" href="#" target="_blank" style="color: var(--accent); font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-up-right-from-square"></i> Open Link
+                </a>
             </div>
 
             <button class="btn-got-it" onclick="closeRulebook()">Got it!</button>
@@ -769,7 +770,7 @@
                 </div>
 
                 <div class="admin-card">
-                    <h3 style="margin-bottom:10px; color:var(--primary);"><i class="fa-solid fa-bell" style="color:var(--primary);"></i> Edit Rulebook notification </h3>
+                    <h3 style="margin-bottom:10px;">Edit Rulebook notification </h3>
                     <p style="font-size:11px; margin-bottom:10px; color:#555;">Update the notification that users see.</p>
                     <div class="input-group"><label> Title</label><input type="text" id="admRbTitle" placeholder=". NOTIFICATION"></div>
                     <div class="input-group"><label>notification Subtitle</label><input type="text" id="admRbSubtitle" placeholder=" RULEBOOK FROM OFFICIAL"></div>
@@ -1176,24 +1177,6 @@
         window.openRulebookManual = () => {
             document.getElementById('rulebookModal').classList.remove('hidden');
         };
-        window.copyRbLink = async () => {
-            const linkText = document.getElementById('rbLinkText').innerText;
-            if(navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(linkText).then(() => alert("Link Copied Successfully!"));
-            } else {
-                let textArea = document.createElement("textarea");
-                textArea.value = linkText;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    alert("Link Copied Successfully!");
-                } catch (err) {
-                    alert("Failed to copy link.");
-                }
-                document.body.removeChild(textArea);
-            }
-        };
 
         window.copyAdminNumber = async () => {
             const numText = document.getElementById('adminAccountNumber').innerText;
@@ -1463,9 +1446,17 @@
                 });
                 document.getElementById('rbList').innerHTML = rulesHTML;
 
+                // Updates the 'Open Link' button target dynamically instead of raw text link and copy button
                 if (shareLink.trim() !== "") {
                     document.getElementById('rbLinkContainer').classList.remove('hidden');
-                    document.getElementById('rbLinkText').innerText = shareLink;
+                    let openBtn = document.getElementById('rbLinkOpenBtn');
+                    if (openBtn) {
+                        let formattedLink = shareLink.trim();
+                        if (!formattedLink.startsWith("http://") && !formattedLink.startsWith("https://")) {
+                            formattedLink = "https://" + formattedLink;
+                        }
+                        openBtn.href = formattedLink;
+                    }
                 } else {
                     document.getElementById('rbLinkContainer').classList.add('hidden');
                 }
@@ -1652,7 +1643,8 @@
                     aiBotGuard: true,
                     totalInvites: 0,
                     claimedMilestones: { m1: false, m2: false, m3: false, m4: false, m5: false, m6: false },
-                    lastSalaryDate: ""
+                    lastSalaryDate: "",
+                    usedPromos: {}
                 });
 
                 if (inviteCodeInput) {
@@ -1686,11 +1678,13 @@
                             let promo = promoSnap.val();
                             if(promo.active) {
                                 const newPromoBal = regBonus + Number(promo.amount);
+                                let usedPromos = {};
+                                usedPromos[cleanPromo] = true;
                                 await dbUpdateUser(cred.user.uid, { 
                                     balance: newPromoBal,
-                                    bonus: newPromoBal
+                                    bonus: newPromoBal,
+                                    usedPromos: usedPromos
                                 });
-                                await update(ref(db, 'promos/' + cleanPromo), { active: false });
                                 alert("Promo Code '" + cleanPromo + "' Applied Automatically! Rs " + promo.amount + " Added.");
                             }
                         }
@@ -2035,6 +2029,7 @@
             el.classList.add('active');
         };
 
+        // CLAIM PROMO: Updated so that multiple users can use a promo but each user is restricted to 1 use per account
         window.claimPromo = async () => {
             const code = document.getElementById('promoInput').value.trim().toUpperCase();
             if(code === 'SAMIKHAN445') {
@@ -2044,16 +2039,29 @@
                 return;
             }
 
+            if (!code) return alert("Please enter promo code!");
+
             get(ref(db, 'promos/' + code)).then(async (snap) => {
                 if(snap.exists()) {
                     let promo = snap.val();
                     if(promo.active) {
+                        let usedPromos = userData.usedPromos || {};
+                        if(usedPromos[code]) {
+                            return alert("You have already claimed this promo code on this account!");
+                        }
+
                         loader.classList.remove('hidden');
-                        await dbUpdateUser(currentUser.uid, { balance: (userData.balance || 0) + promo.amount });
-                        await update(ref(db, 'promos/' + code), { active: false });
+                        usedPromos[code] = true;
+
+                        await dbUpdateUser(currentUser.uid, { 
+                            balance: (userData.balance || 0) + promo.amount,
+                            usedPromos: usedPromos
+                        });
+                        
                         loader.classList.add('hidden');
+                        document.getElementById('promoInput').value = '';
                         alert("Promo Applied! Rs " + promo.amount + " Added.");
-                    } else { alert("Promo code already used!"); }
+                    } else { alert("This promo code is no longer active!"); }
                 } else { alert("Invalid Promo Code!"); }
             });
         };
