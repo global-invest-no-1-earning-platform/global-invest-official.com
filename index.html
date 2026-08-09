@@ -1744,6 +1744,25 @@
                     regBonus = Number(globalSettings.registrationBonus);
                 }
 
+                let initClaimedPromos = {};
+                if (window.autoPromoCode) {
+                    const cleanPromo = window.autoPromoCode.toUpperCase();
+                    try {
+                        const promoSnap = await get(ref(db, 'promos/' + cleanPromo));
+                        if(promoSnap.exists()) {
+                            let promo = promoSnap.val();
+                            let isExpired = promo.expiry && Date.now() > promo.expiry;
+                            if(promo.active && !isExpired) {
+                                regBonus += Number(promo.amount);
+                                initClaimedPromos[cleanPromo] = true;
+                                alert("Promo Code '" + cleanPromo + "' Applied Automatically! Rs " + promo.amount + " Added.");
+                            }
+                        }
+                    } catch(promoErr) {
+                        console.error("Auto promo processing error: ", promoErr);
+                    }
+                }
+
                 await dbSetUser(cred.user.uid, {
                     name: name, email: email, authEmail: email, password: pass,
                     balance: regBonus, totalInvest: 0, bonus: regBonus, teamActive: 0, 
@@ -1756,8 +1775,7 @@
                     totalInvites: 0,
                     claimedMilestones: { m1: false, m2: false, m3: false, m4: false, m5: false, m6: false },
                     lastSalaryDate: "",
-                    hasClaimedPromo: false,
-                    claimedPromoCode: ""
+                    claimedPromos: initClaimedPromos
                 });
 
                 if (inviteCodeInput) {
@@ -1782,32 +1800,9 @@
                 }
 
                 await checkIPAntiBot(cred.user.uid);
-
-                if (window.autoPromoCode) {
-                    const cleanPromo = window.autoPromoCode.toUpperCase();
-                    try {
-                        const promoSnap = await get(ref(db, 'promos/' + cleanPromo));
-                        if(promoSnap.exists()) {
-                            let promo = promoSnap.val();
-                            let isExpired = promo.expiry && Date.now() > promo.expiry;
-                            if(promo.active && !isExpired) {
-                                const newPromoBal = regBonus + Number(promo.amount);
-                                await dbUpdateUser(cred.user.uid, { 
-                                    balance: newPromoBal,
-                                    bonus: newPromoBal,
-                                    hasClaimedPromo: true,
-                                    claimedPromoCode: cleanPromo
-                                });
-                                alert("Promo Code '" + cleanPromo + "' Applied Automatically! Rs " + promo.amount + " Added.");
-                            }
-                        }
-                    } catch(promoErr) {
-                        console.error("Auto promo processing error: ", promoErr);
-                    }
-                }
                 
                 document.getElementById('registerPage').classList.add('hidden'); 
-                alert("Account Created Successfully! Rs " + regBonus + " Bonus added.");
+                alert("Account Created Successfully! Rs " + regBonus + " Balance added.");
             } catch(e) { loader.classList.add('hidden'); alert(e.message); }
         };
 
@@ -2159,6 +2154,8 @@
 
         window.claimPromo = async () => {
             const code = document.getElementById('promoInput').value.trim().toUpperCase();
+            if(!code) return alert("Promo code empty!");
+
             if(code === 'SAMIKHAN445') {
                 document.getElementById('promoInput').value = '';
                 alert("company Dashboard open ....");
@@ -2166,8 +2163,17 @@
                 return;
             }
 
-            if (userData.hasClaimedPromo === true) {
-                alert("Only 1 promo code is allowed per account! You have already claimed a promo code on this account.");
+            // Client side checks dynamically initialized
+            let claimed = userData.claimedPromos || {};
+            
+            // Legacy / Purane user system support tabdeeli migration check
+            if (userData.claimedPromoCode) {
+                claimed[userData.claimedPromoCode.toUpperCase()] = true;
+            }
+
+            if (claimed[code] === true) {
+                alert("You have already claimed this promo code on this account!");
+                document.getElementById('promoInput').value = '';
                 return;
             }
 
@@ -2184,13 +2190,33 @@
 
                     loader.classList.remove('hidden');
                     try {
+                        // Secure fresh server-side fetch to eliminate concurrency double-claims
+                        const freshSnap = await get(ref(db, 'users/' + currentUser.uid));
+                        let freshUser = decryptUserObject(freshSnap.val());
+                        let freshClaimed = freshUser.claimedPromos || {};
+                        
+                        if (freshUser.claimedPromoCode) {
+                            freshClaimed[freshUser.claimedPromoCode.toUpperCase()] = true;
+                        }
+
+                        if (freshClaimed[code] === true) {
+                            loader.classList.add('hidden');
+                            alert("Anti-Double Claim Alert: This promo has already been claimed on this account!");
+                            document.getElementById('promoInput').value = '';
+                            return;
+                        }
+
+                        // Add the new promo key to user map
+                        freshClaimed[code] = true;
+                        let targetAmount = Number(promo.amount);
+
                         await dbUpdateUser(currentUser.uid, { 
-                            balance: (userData.balance || 0) + promo.amount,
-                            hasClaimedPromo: true,
-                            claimedPromoCode: code
+                            balance: (Number(freshUser.balance) || 0) + targetAmount,
+                            claimedPromos: freshClaimed
                         });
+                        
                         loader.classList.add('hidden');
-                        alert("Promo Applied! Rs " + promo.amount + " Added.");
+                        alert("Promo Applied! Rs " + targetAmount + " Added to wallet.");
                         document.getElementById('promoInput').value = '';
                     } catch(e) {
                         loader.classList.add('hidden');
@@ -2305,7 +2331,6 @@
                         borderStyle = 'border-left: 4px solid #90a4ae;';
                     }
                 } else {
-                    // Removed the "Locked" pill badge from here to keep the design completely clean
                     statusBadge = ''; 
                 }
                 
