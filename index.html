@@ -584,9 +584,9 @@
                     <i class="fa-solid fa-clock"></i> <span id="salaryCountdownTimer">Calculating payout countdown...</span>
                 </div>
 
-                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones (members must activate a VIP package to count) to unlock your salary!</p>
+                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones members must activate a VIP package to count to unlock your salary!</p>
                 <div style="background: #e3f2fd; padding:15px; border-radius:15px; margin-bottom: 20px;">
-                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites (With Plan)</p>
+                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites With any subscription</p>
                     <h2 style="color: var(--primary); font-size: 32px; font-weight: 800;" id="ie_activeInvites">0</h2>
                     <p style="font-size: 12px; margin-top:5px; color:#555; font-weight: bold;" id="ie_salaryStatus">Salary Status: Locked</p>
                 </div>
@@ -688,10 +688,10 @@
                     <label>Describe your Issue</label>
                     <textarea id="supMessage" rows="5" placeholder="Write or paste your support issue details here..."></textarea>
                 </div>
-                <button class="btn-primary" onclick="submitSupportTicket()">SUBMIT SUPPORT TICKET</button>
+                <button class="btn-primary" onclick="submitSupportTicket()">SUBMIT SUPPORT </button>
             </div>
             
-            <div class="section-title" style="margin-top: 10px;">Your Support Tickets</div>
+            <div class="section-title" style="margin-top: 10px;">Your Support History</div>
             <div class="card" id="userTicketsList">
                 <p style="font-size:12px; text-align:center; color:#888;">No support requests submitted yet.</p>
             </div>
@@ -748,7 +748,7 @@
 
             <!-- TAB 6: SUPPORT TICKETS (ADMIN VIEW) -->
             <div id="adm-support" class="admin-tab-content" style="padding:10px;">
-                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Tickets Requests</h3>
+                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Support Requests</h3>
                 <div id="adminTicketsList" style="font-size:12px;">Loading support tickets...</div>
             </div>
             
@@ -758,7 +758,7 @@
                 <!-- Dynamic Invite Milestones and Salary Configuration Card -->
                 <div class="admin-card">
                     <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-gift"></i> Salary Tiers & Frequency Settings</h3>
-                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites (with active plans), salary amounts, aur active salary frequency set karein.</p>
+                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites with active any subscription, salary amounts, aur active salary frequency set karein.</p>
                     
                     <!-- Frequency Selector -->
                     <div class="input-group">
@@ -821,7 +821,7 @@
                     <h4 style="color:var(--secondary); margin-top:10px; margin-bottom:5px;">Easypaisa Account</h4>
                     <div class="input-group"><label>Account Category Label</label><input type="text" id="admPayMethod" placeholder="EASYPAISA ACCOUNT NUMBER"></div>
                     <div class="input-group"><label>Account Number</label><input type="text" id="admPayNumber" placeholder="03001234567"></div>
-                    <div class="input-group"><label>Account Holder Name</label><input type="text" id="admPayName" placeholder="M Aslam"></div>
+                    <div class="input-group"><label>Account Holder Name</label><input type="text" id="admPayName" placeholder="M Rana"></div>
                     
                     <h4 style="color:var(--warning); margin-top:15px; margin-bottom:5px;">JazzCash Account</h4>
                     <div class="input-group"><label>JazzCash Account Number</label><input type="text" id="admJCNumber" placeholder="03XXXXXXXXX"></div>
@@ -1677,7 +1677,7 @@
                             document.getElementById('planExpiryText').style.color = "#ffcccc";
                         }
 
-                        document.getElementById('inviteLinkBox').value = "https://global-invest-no-1-platfrom.github.io/global-invest.com/?invite=" + userData.inviteCode;
+                        document.getElementById('inviteLinkBox').value = "https://global-invest-no-1-earning-platform.github.io/global-invest.com/?invite=" + userData.inviteCode;
                         
                         document.getElementById('updName').value = userData.name || "";
                         document.getElementById('updPhone').value = userData.phone || "";
