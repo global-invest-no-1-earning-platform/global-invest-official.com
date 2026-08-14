@@ -34,7 +34,7 @@
             --warning: #ffb300;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; transition: background-color 1s ease, color 0.5s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; transition: background-color 0.8s ease, color 0.4s ease; }
         body { background-color: var(--bg); color: #333; overflow-x: hidden; }
         .hidden { display: none !important; }
         
@@ -264,6 +264,16 @@
             color: #fff !important;
         }
 
+        /* Hardware Accelerated Smooth Page Fade-In Transition */
+        .page {
+            animation: fadeInPage 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            will-change: opacity, transform;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translate3d(0, 12px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
         /* ================= PAKISTAN INDEPENDENCE DAY TEMPORARY OVERRIDES ================= */
         body.pak-independence-active {
             --primary: #00401A !important;      /* Deep Pakistani Flag Green */
@@ -305,12 +315,46 @@
             color: var(--secondary) !important;
         }
 
-        /* Top Festive Celebration Banner */
+        /* 3D scrolling ticker bar at the very top (Upgraded & Larger) */
+        .celebration-ticker-bar {
+            width: 100%;
+            background: linear-gradient(135deg, #002b11, #00401a);
+            color: white;
+            padding: 12px 0; /* Increased Padding */
+            font-size: 16px; /* Increased Font Size */
+            font-weight: 700;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-bottom: 4px solid #00e676;
+            animation: border7colors 8s infinite linear;
+            transform: perspective(400px) rotateX(1.5deg);
+            z-index: 1001;
+            position: relative;
+            user-select: none;
+            will-change: box-shadow, border-color;
+        }
+        .ticker-text-wrapper {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marqueeEffect 35s infinite linear; /* Reduced Speed (Slower Scroll) */
+            will-change: transform;
+        }
+        .ticker-text-wrapper span {
+            display: inline-block;
+            padding: 0 35px;
+            text-shadow: 0 0 8px #00e676;
+            animation: glow7colors 8s infinite linear;
+            will-change: color, text-shadow;
+        }
+
+        /* Top Festive Celebration Banner Below Header */
         .independence-banner {
             background: linear-gradient(90deg, #00401A, #006629, #00401A);
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 12px;
             font-size: 13px;
             font-weight: 600;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -323,7 +367,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         .independence-banner .celebrate-text {
@@ -337,8 +381,19 @@
             animation: waveFlag 1.5s infinite ease-in-out;
             display: inline-block;
         }
+        .independence-timer-widget {
+            font-family: monospace;
+            background: rgba(0,0,0,0.2);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin-left: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
 
-        /* Particle / Confetti Layer */
+        /* Particle / Confetti Layer (GPU Accelerated) */
         .confetti-container {
             position: fixed;
             top: 0;
@@ -354,6 +409,7 @@
             top: -50px;
             font-size: 18px;
             opacity: 0.85;
+            will-change: transform;
             animation: fall linear infinite;
         }
         .confetti-piece.green {
@@ -365,9 +421,37 @@
             text-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 2px #000;
         }
 
+        /* ================= 3D / 7-COLOR GLOW ANIMATIONS ================= */
+        @keyframes marqueeEffect {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        @keyframes glow7colors {
+            0% { color: #ffffff; text-shadow: 0 0 8px #00e676, 0 0 15px #00e676; }
+            14% { color: #a3ffc2; text-shadow: 0 0 8px #00c853, 0 0 15px #00c853; }
+            28% { color: #ffffff; text-shadow: 0 0 8px #ffffff, 0 0 15px #e0e0e0; }
+            42% { color: #fff59d; text-shadow: 0 0 8px #ffeb3b, 0 0 15px #ffb300; }
+            57% { color: #b2dfdb; text-shadow: 0 0 8px #26a69a, 0 0 15px #00796b; }
+            71% { color: #80deea; text-shadow: 0 0 8px #00bcd4, 0 0 15px #00838f; }
+            85% { color: #c8e6c9; text-shadow: 0 0 8px #4caf50, 0 0 15px #1b5e20; }
+            100% { color: #ffffff; text-shadow: 0 0 8px #00e676, 0 0 15px #00e676; }
+        }
+
+        @keyframes border7colors {
+            0% { border-bottom-color: #00e676; box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4); }
+            14% { border-bottom-color: #00c853; box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4); }
+            28% { border-bottom-color: #ffffff; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3); }
+            42% { border-bottom-color: #ffeb3b; box-shadow: 0 4px 15px rgba(255, 235, 59, 0.4); }
+            57% { border-bottom-color: #26a69a; box-shadow: 0 4px 15px rgba(38, 166, 154, 0.4); }
+            71% { border-bottom-color: #00bcd4; box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4); }
+            85% { border-bottom-color: #4caf50; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
+            100% { border-bottom-color: #00e676; box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4); }
+        }
+
         @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
+            from { transform: translate3d(0, -100%, 0); }
+            to { transform: translate3d(0, 0, 0); }
         }
         @keyframes pulseBanner {
             0%, 100% { opacity: 0.95; }
@@ -379,17 +463,22 @@
         }
         @keyframes fall {
             0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
+                transform: translate3d(0, 0, 0) rotate(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translateY(105vh) rotate(360deg) translateX(50px);
+                transform: translate3d(50px, 105vh, 0) rotate(360deg);
                 opacity: 0;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- 3D Scrolling Glowing 7-Color Ticker Bar (Independence Day Pati) -->
+    <div id="independenceTicker" class="celebration-ticker-bar hidden">
+        <div class="ticker-text-wrapper" id="tickerWrapper"></div>
+    </div>
 
     <div id="loader"><i class="fa-solid fa-spinner fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Loading System...</p></div>
 
@@ -507,7 +596,7 @@
                 <div class="menu-item" onclick="showPage('promoPage')">
                     <div class="menu-icon">
                         <i class="fa-solid fa-ticket"></i>
-                        <span class="glow-update-badge hidden" id="promoUpdateBadge">ADVANCE</span>
+                        <span class="glow-update-badge hidden" id="promoUpdateBadge">UPDATE</span>
                     </div>
                     <span>Promo</span>
                 </div>
@@ -519,7 +608,7 @@
                 <div class="menu-item" onclick="clickInviteEarn(this)">
                     <div class="menu-icon" style="color:#e91e63;">
                         <i class="fa-solid fa-hand-holding-dollar"></i>
-                        <span class="glow-update-badge hidden" id="salaryUpdateBadge">ADVANCE</span>
+                        <span class="glow-update-badge hidden" id="salaryUpdateBadge">UPDATE</span>
                     </div>
                     <span id="inviteEarnMenuText">Salary</span>
                 </div>
@@ -530,14 +619,14 @@
                 <div class="menu-item" onclick="showPage('aboutPage')">
                     <div class="menu-icon">
                         <i class="fa-solid fa-circle-info"></i>
-                        <span class="glow-update-badge hidden" id="aboutUpdateBadge">ADVANCE</span>
+                        <span class="glow-update-badge hidden" id="aboutUpdateBadge">UPDATE</span>
                     </div>
                     <span>About</span>
                 </div>
                 
                 <div class="menu-item" onclick="openSocial('whatsapp')"><div class="menu-icon" style="color:#25d366;"><i class="fa-brands fa-whatsapp"></i></div><span>WhatsApp</span></div>
                 <div class="menu-item" onclick="openSocial('telegram')"><div class="menu-icon" style="color:#24A1DE;"><i class="fa-brands fa-telegram"></i></div><span>Telegram</span></div>
-                <div class="menu-item" onclick="openSocial('instagram')"><div class="menu-icon" style="color:#E4405F;"><i class="fa-brands fa-instagram"></i></div><span>Instagram</span></div>
+                <div class="menu-item" onclick="openSocial('indigo')"><div class="menu-icon" style="color:#E4405F;"><i class="fa-brands fa-instagram"></i></div><span>Instagram</span></div>
             </div>
         </div>
 
@@ -983,7 +1072,7 @@
                     <h3 style="margin-bottom:10px;">Social App Links </h3>
                     <div class="input-group"><label>WhatsApp Link</label><input type="text" id="admWA" placeholder="https://chat.whatsapp.com/..."></div>
                     <div class="input-group"><label>Telegram Link</label><input type="text" id="admTG" placeholder="https://t.me/..."></div>
-                    <div class="input-group"><label>Instagram Link</label><input type="text" id="admInsta" placeholder="https://instagram.com/..."></div>
+                    <div class="input-group"><label>Instagram Link</label><input type="text" id="admInsta" placeholder="https://indigo.com/..."></div>
                     <div class="input-group"><label>Website Link</label><input type="text" id="admWeb" placeholder="https://..."></div>
                     <div class="input-group"><label>Agent Support WhatsApp Number</label><input type="text" id="admAgentWA" placeholder="923047374445"></div>
                     
@@ -1081,7 +1170,7 @@
         // Dynamic Tiers Default Configuration updated to meet direct prompt spec
         const defaultInviteSettings = {
             t1_inv: 10, t1_amt: 200,
-            t2_inv: 25, t2_amt: 500, // Updated level 2 price to Rs. 500
+            t2_inv: 25, t2_amt: 500, 
             t3_inv: 50, t3_amt: 820,
             t4_inv: 60, t4_amt: 1100,
             t5_inv: 100, t5_amt: 1600,
@@ -1488,14 +1577,28 @@
 
         // ================= PAKISTAN INDEPENDENCE DAY TEMPORARY FUNCTION =================
         function initIndependenceEffects() {
-            // Append header banner below main header
+            // Activate and configure Top 3D Ticker Bar (Slowed & Bilingual)
+            const ticker = document.getElementById('independenceTicker');
+            const wrapper = document.getElementById('tickerWrapper');
+            if (ticker && wrapper) {
+                ticker.classList.remove('hidden');
+                let rawText = "";
+                for (let i = 0; i < 6; i++) {
+                    rawText += `<span>🇵🇰 یومِ آزادی مبارک ہو! پاکستان زندہ باد! 🇵🇰</span>`;
+                    rawText += `<span>🇵🇰 Happy Independence Day! Jashn-e-Azadi Mubarak! 🇵🇰</span>`;
+                }
+                wrapper.innerHTML = rawText + rawText; // Duplicate for smooth looping scroll
+            }
+
+            // Append header banner below main header with real-time countdown to event expiry
             const banner = document.createElement('div');
             banner.className = 'independence-banner';
             banner.innerHTML = `
                 <div class="banner-content">
                     <span class="flag-icon">🇵🇰</span> 
-                    <strong>Happy 79th Independence Day!</strong> 
+                    <strong>79th Independence Day Special!</strong> 
                     <span class="celebrate-text">Jashn-e-Azadi Mubarak</span> 
+                    <span class="independence-timer-widget" id="indEventCountdown">00:00:00</span>
                     <span class="flag-icon">🇵🇰</span>
                 </div>
             `;
@@ -1503,6 +1606,27 @@
             if (header) {
                 header.insertAdjacentElement('afterend', banner);
             }
+
+            // Real-time Event Expiry countdown calculation
+            const targetEndTime = 1786958100000; // Aug 16, 2026, 2:15 PM PKT
+            function updateEventCountdown() {
+                const diff = targetEndTime - Date.now();
+                if (diff <= 0) {
+                    if (document.getElementById('indEventCountdown')) {
+                        document.getElementById('indEventCountdown').innerText = "Event Ended";
+                    }
+                    return;
+                }
+                const hrs = Math.floor(diff / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                const timerWidget = document.getElementById('indEventCountdown');
+                if (timerWidget) {
+                    timerWidget.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }
+            updateEventCountdown();
+            setInterval(updateEventCountdown, 1000);
 
             // Append falling elements container
             const container = document.createElement('div');
@@ -1754,6 +1878,14 @@
                             alert("ACCOUNT BLOCKED by company .\nReason: " + (userData.blockReason || "Violation of rules."));
                             signOut(auth);
                             return;
+                        }
+
+                        // ================= DYNAMIC UNDEFINED INVITE CODE FIXER =================
+                        let userInviteCode = userData.inviteCode;
+                        if (!userInviteCode || userInviteCode === "undefined" || String(userInviteCode).trim() === "undefined") {
+                            userInviteCode = Math.floor(1000 + Math.random() * 9000).toString();
+                            await dbUpdateUser(user.uid, { inviteCode: userInviteCode });
+                            userData.inviteCode = userInviteCode;
                         }
 
                         let activePlans = userData.activePlans || {};
@@ -2060,24 +2192,6 @@
             } catch(e) {
                 loader.classList.add('hidden');
                 alert("Error: " + e.message + " (Check current password)");
-            }
-        };
-
-        window.openSocial = (type) => {
-            let url = "";
-            if(type === 'whatsapp') {
-                url = globalSettings.whatsapp || "https://chat.whatsapp.com/";
-            } else if (type === 'telegram') {
-                url = globalSettings.telegram || "https://t.me/Globalinvest445";
-            } else if (type === 'instagram') {
-                url = globalSettings.instagram || "https://instagram.com/";
-            }
-            
-            if (url) {
-                if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                    url = "https://" + url;
-                }
-                window.open(url, "_blank");
             }
         };
 
@@ -3231,7 +3345,7 @@
             await update(ref(db, 'settings'), { 
                 whatsapp: wa, 
                 telegram: tg, 
-                instagram: insta, 
+                indigo: insta, 
                 website: web, 
                 withdrawCondition: wCond, 
                 minWithdraw: minW,
