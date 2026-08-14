@@ -263,6 +263,130 @@
         body.dark-theme .user-row span {
             color: #fff !important;
         }
+
+        /* ================= PAKISTAN INDEPENDENCE DAY TEMPORARY OVERRIDES ================= */
+        body.pak-independence-active {
+            --primary: #00401A !important;      /* Deep Pakistani Flag Green */
+            --secondary: #006629 !important;    /* Solid Green Accent */
+            --accent: #19873d !important;       /* Bright Green Glow */
+            --bg: #f4faf6 !important;           /* Light Green Tint Background */
+            --text: #003013 !important;         /* Dark Forest Green for text */
+            background-color: var(--bg) !important;
+            background-image: radial-gradient(circle at top right, rgba(0, 102, 41, 0.08) 0%, transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(0, 64, 26, 0.08) 0%, transparent 40%) !important;
+        }
+        body.pak-independence-active .logo {
+            color: #006629 !important;
+            text-shadow: 0 0 5px rgba(0,102,41,0.2);
+        }
+        body.pak-independence-active .dash-card {
+            background: linear-gradient(135deg, #00401A, #006629) !important;
+            box-shadow: 0 10px 20px rgba(0, 64, 26, 0.3) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        body.pak-independence-active .dash-card::after {
+            content: "🌙";
+            position: absolute;
+            right: -15px;
+            bottom: -15px;
+            font-size: 110px;
+            opacity: 0.12;
+            transform: rotate(-35deg);
+            color: #fff;
+            pointer-events: none;
+        }
+        body.pak-independence-active .btn-primary {
+            background: var(--secondary) !important;
+            box-shadow: 0 4px 6px rgba(0,102,41,0.15) !important;
+        }
+        body.pak-independence-active .status-box i {
+            background: #e1f5fe !important;
+            color: var(--secondary) !important;
+        }
+
+        /* Top Festive Celebration Banner */
+        .independence-banner {
+            background: linear-gradient(90deg, #00401A, #006629, #00401A);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: slideDown 0.5s ease-out, pulseBanner 3s infinite ease-in-out;
+            z-index: 999;
+            position: relative;
+            border-bottom: 2.5px solid rgba(255,255,255,0.2);
+        }
+        .independence-banner .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .independence-banner .celebrate-text {
+            color: #a3ffc2;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .independence-banner .flag-icon {
+            font-size: 18px;
+            animation: waveFlag 1.5s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        /* Particle / Confetti Layer */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .confetti-piece {
+            position: absolute;
+            top: -50px;
+            font-size: 18px;
+            opacity: 0.85;
+            animation: fall linear infinite;
+        }
+        .confetti-piece.green {
+            color: #006629;
+            text-shadow: 0 0 5px rgba(0,102,41,0.5);
+        }
+        .confetti-piece.white {
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 2px #000;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes pulseBanner {
+            0%, 100% { opacity: 0.95; }
+            50% { opacity: 1; }
+        }
+        @keyframes waveFlag {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg) translateX(50px);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -374,7 +498,7 @@
                 <div class="menu-item" onclick="showPage('adsPage')">
                     <div class="menu-icon">
                         <i class="fa-solid fa-play"></i>
-                        <span class="glow-update-badge hidden" id="adsUpdateBadge">ADVANCE</span>
+                        <span class="glow-update-badge hidden" id="adsUpdateBadge">ADVANCE </span>
                     </div>
                     <span>Daily Ads</span>
                 </div>
@@ -517,7 +641,7 @@
         <div id="aboutPage" class="page hidden">
             <div class="section-title">About Platform</div>
             <div class="card" style="text-align:justify; max-height: 70vh; overflow-y: auto; font-size: 13px; line-height: 1.6; color: #333;">
-                <h2 style="color:var(--primary); margin-bottom:15px; text-align:center;">Global invest PLATFORM v8.9.0</h2>
+                <h2 style="color:var(--primary); margin-bottom:15px; text-align:center;">Global invest PLATFORM v5.3.9</h2>
                 <div id="aboutContentLines">
                     <!-- Javascript will load exactly 1600+ word corporate guide here -->
                 </div>
@@ -584,9 +708,9 @@
                     <i class="fa-solid fa-clock"></i> <span id="salaryCountdownTimer">Calculating payout countdown...</span>
                 </div>
 
-                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones members must activate a VIP package to count to unlock your salary!</p>
+                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones (members must activate a VIP package to count) to unlock your salary!</p>
                 <div style="background: #e3f2fd; padding:15px; border-radius:15px; margin-bottom: 20px;">
-                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites With any subscription</p>
+                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites (With Plan)</p>
                     <h2 style="color: var(--primary); font-size: 32px; font-weight: 800;" id="ie_activeInvites">0</h2>
                     <p style="font-size: 12px; margin-top:5px; color:#555; font-weight: bold;" id="ie_salaryStatus">Salary Status: Locked</p>
                 </div>
@@ -635,7 +759,7 @@
                         <button onclick="copyAdminNumber()" style="background: #1565c0; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-copy"></i> Copy</button>
                     </div>
 
-                    <p style="font-size:14px; font-weight:700;" id="clientPayName">Account Name: M RANA</p>
+                    <p style="font-size:14px; font-weight:700;" id="clientPayName">Account Name: M Aslam</p>
                 </div>
                 <div class="input-group"><label>Sender Account Name</label><input type="text" id="depSenderName" placeholder="Ali Raza"></div>
                 <div class="input-group"><label>Sender Account Number</label><input type="number" id="depSenderNum" placeholder="03XXXXXXXXX"></div>
@@ -688,10 +812,10 @@
                     <label>Describe your Issue</label>
                     <textarea id="supMessage" rows="5" placeholder="Write or paste your support issue details here..."></textarea>
                 </div>
-                <button class="btn-primary" onclick="submitSupportTicket()">SUBMIT SUPPORT </button>
+                <button class="btn-primary" onclick="submitSupportTicket()">SUBMIT SUPPORT TICKET</button>
             </div>
             
-            <div class="section-title" style="margin-top: 10px;">Your Support History</div>
+            <div class="section-title" style="margin-top: 10px;">Your Support Tickets</div>
             <div class="card" id="userTicketsList">
                 <p style="font-size:12px; text-align:center; color:#888;">No support requests submitted yet.</p>
             </div>
@@ -748,7 +872,7 @@
 
             <!-- TAB 6: SUPPORT TICKETS (ADMIN VIEW) -->
             <div id="adm-support" class="admin-tab-content" style="padding:10px;">
-                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Support Requests</h3>
+                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Tickets Requests</h3>
                 <div id="adminTicketsList" style="font-size:12px;">Loading support tickets...</div>
             </div>
             
@@ -758,7 +882,7 @@
                 <!-- Dynamic Invite Milestones and Salary Configuration Card -->
                 <div class="admin-card">
                     <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-gift"></i> Salary Tiers & Frequency Settings</h3>
-                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites with active any subscription, salary amounts, aur active salary frequency set karein.</p>
+                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites (with active plans), salary amounts, aur active salary frequency set karein.</p>
                     
                     <!-- Frequency Selector -->
                     <div class="input-group">
@@ -821,7 +945,7 @@
                     <h4 style="color:var(--secondary); margin-top:10px; margin-bottom:5px;">Easypaisa Account</h4>
                     <div class="input-group"><label>Account Category Label</label><input type="text" id="admPayMethod" placeholder="EASYPAISA ACCOUNT NUMBER"></div>
                     <div class="input-group"><label>Account Number</label><input type="text" id="admPayNumber" placeholder="03001234567"></div>
-                    <div class="input-group"><label>Account Holder Name</label><input type="text" id="admPayName" placeholder="M Rana"></div>
+                    <div class="input-group"><label>Account Holder Name</label><input type="text" id="admPayName" placeholder="M Aslam"></div>
                     
                     <h4 style="color:var(--warning); margin-top:15px; margin-bottom:5px;">JazzCash Account</h4>
                     <div class="input-group"><label>JazzCash Account Number</label><input type="text" id="admJCNumber" placeholder="03XXXXXXXXX"></div>
@@ -1362,7 +1486,49 @@
         }
         setInterval(updateSalaryCountdown, 1000);
 
+        // ================= PAKISTAN INDEPENDENCE DAY TEMPORARY FUNCTION =================
+        function initIndependenceEffects() {
+            // Append header banner below main header
+            const banner = document.createElement('div');
+            banner.className = 'independence-banner';
+            banner.innerHTML = `
+                <div class="banner-content">
+                    <span class="flag-icon">🇵🇰</span> 
+                    <strong>Happy 79th Independence Day!</strong> 
+                    <span class="celebrate-text">Jashn-e-Azadi Mubarak</span> 
+                    <span class="flag-icon">🇵🇰</span>
+                </div>
+            `;
+            const header = document.querySelector('header');
+            if (header) {
+                header.insertAdjacentElement('afterend', banner);
+            }
+
+            // Append falling elements container
+            const container = document.createElement('div');
+            container.className = 'confetti-container';
+            document.body.appendChild(container);
+
+            const shapes = ['★', '🌙', '🇵🇰'];
+            for (let i = 0; i < 40; i++) {
+                const piece = document.createElement('div');
+                piece.className = `confetti-piece ${i % 2 === 0 ? 'green' : 'white'}`;
+                piece.style.left = Math.random() * 100 + 'vw';
+                piece.style.animationDelay = Math.random() * 6 + 's';
+                piece.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                piece.innerHTML = shapes[i % shapes.length];
+                container.appendChild(piece);
+            }
+        }
+
         window.onload = () => {
+            // Pakistan Independence Day Active Limit (Aug 14, 2026, 2:15 PM PKT to Aug 16, 2026, 2:15 PM PKT)
+            const independenceEndTime = 1786958100000; 
+            if (Date.now() < independenceEndTime) {
+                document.body.classList.add('pak-independence-active');
+                initIndependenceEffects();
+            }
+
             // Check for glow badges (1 week active limit starting Aug 8, 2026 to Aug 15, 2026)
             const expiryTime = 1786819200000;
             if (Date.now() < expiryTime) {
@@ -1677,7 +1843,7 @@
                             document.getElementById('planExpiryText').style.color = "#ffcccc";
                         }
 
-                        document.getElementById('inviteLinkBox').value = "https://global-invest-no-1-earning-platform.github.io/global-invest.com/?invite=" + userData.inviteCode;
+                        document.getElementById('inviteLinkBox').value = "https://global-invest-no-1-platfrom.github.io/global-invest.com/?invite=" + userData.inviteCode;
                         
                         document.getElementById('updName').value = userData.name || "";
                         document.getElementById('updPhone').value = userData.phone || "";
