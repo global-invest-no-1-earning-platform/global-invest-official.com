@@ -632,7 +632,7 @@
 
         <!-- WITHDRAW -->
         <div id="withdrawPage" class="page hidden">
-            <div class="section-title">Withdraw Fund</div>
+            <div class="section-title">Withdraw Funds</div>
             <div class="card">
                 <div class="payment-info" style="background:#e3f2fd; border-color:var(--primary); margin-bottom:20px; padding:15px; border-radius:15px; text-align:center;">
                     <p style="font-size:12px;">Available Balance</p>
@@ -923,7 +923,7 @@
                 <div class="admin-nav-item" onclick="switchAdminTab('adm-with', this)">Withdraws</div>
                 <div class="admin-nav-item" onclick="switchAdminTab('adm-user', this)">Users</div>
                 <div class="admin-nav-item" onclick="switchAdminTab('adm-plans', this)">Plans</div>
-                <div class="admin-nav-item" onclick="switchAdminTab('adm-support', this)">Tickets</div>
+                <div class="admin-nav-item" onclick="switchAdminTab('adm-support', this)">Support</div>
                 <div class="admin-nav-item" onclick="switchAdminTab('adm-set', this)">Settings</div>
             </div>
 
@@ -961,17 +961,33 @@
 
             <!-- TAB 6: SUPPORT TICKETS (ADMIN VIEW) -->
             <div id="adm-support" class="admin-tab-content" style="padding:10px;">
-                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Tickets Requests</h3>
-                <div id="adminTicketsList" style="font-size:12px;">Loading support tickets...</div>
+                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Requests</h3>
+                <div id="adminTicketsList" style="font-size:12px;">Loading support...</div>
             </div>
             
             <!-- TAB 7: SETTINGS -->
             <div id="adm-set" class="admin-tab-content" style="padding:10px;">
                 
+                <!-- NEW: Anti-Bot Auto Ad Watcher & Earnings Engine Card -->
+                <div class="admin-card" style="border: 2px solid #00e676; background: #1a1a1a; color: #fff;">
+                    <h3 style="margin-bottom:10px; color:#58e596;"><i class="fa-solid fa-robot"></i> Anti-Bot Auto Ad Watcher Engine</h3>
+                    <p style="font-size:11px; margin-bottom:15px; color:#ccc;">Yeh anti-bot engine har 10 seconds baad automatically saare users ko scan karega aur jin users ke plans active hain unke pending daily ads run kar ke unka profit direct unke wallet mein add kar dega offline users ke liye bhi.</p>
+                    
+                    <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px;">
+                        <span id="autoBotStatusIndicator" style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#ff1744; box-shadow:0 0 8px #ff1744;"></span>
+                        <span id="autoBotStatusText" style="font-size:13px; font-weight:bold; color:#ff1744;">Status: STOPPED</span>
+                    </div>
+
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-primary" style="background:#00c853; flex:1;" onclick="toggleAutoBotEngine(true)"><i class="fa-solid fa-play"></i> Start Anti-Bot </button>
+                        <button class="btn-danger" style="flex:1;" onclick="toggleAutoBotEngine(false)"><i class="fa-solid fa-stop"></i> Stop Anti-Bot</button>
+                    </div>
+                </div>
+
                 <!-- Dynamic Invite Milestones and Salary Configuration Card -->
                 <div class="admin-card">
                     <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-gift"></i> Salary Tiers & Frequency Settings</h3>
-                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites (with active plans), salary amounts, aur active salary frequency set karein.</p>
+                    <p style="font-size:11px; margin-bottom:10px; color:#555;">Yahan se direct Salary Tiers required invites with active plans, salary amounts, aur active salary frequency set karein.</p>
                     
                     <!-- Frequency Selector -->
                     <div class="input-group">
@@ -2876,6 +2892,107 @@
             loadAdminPlans();
             loadAdminTickets();
         };
+
+        // ================= NEW: ANTI-BOT AUTO AD WATCHER ENGINE LOGIC =================
+        let autoBotEngineInterval = null;
+
+        window.toggleAutoBotEngine = (start) => {
+            const indicator = document.getElementById('autoBotStatusIndicator');
+            const statusText = document.getElementById('autoBotStatusText');
+
+            if (start) {
+                if (autoBotEngineInterval) clearInterval(autoBotEngineInterval);
+                
+                // Run engine immediately once, then every 10 seconds
+                runAutoBotCycle();
+                autoBotEngineInterval = setInterval(runAutoBotCycle, 10000);
+
+                if (indicator && statusText) {
+                    indicator.style.background = "#00c853";
+                    indicator.style.boxShadow = "0 0 8px #00c853";
+                    statusText.style.color = "#00c853";
+                    statusText.innerText = "Status: RUNNING (Scanning every 10s)";
+                }
+                alert("Anti-Bot Auto Ad Watcher Engine Started Successfully! It will now auto-watch pending ads for all active plan users every 10 seconds.");
+            } else {
+                if (autoBotEngineInterval) {
+                    clearInterval(autoBotEngineInterval);
+                    autoBotEngineInterval = null;
+                }
+                if (indicator && statusText) {
+                    indicator.style.background = "#ff1744";
+                    indicator.style.boxShadow = "0 0 8px #ff1744";
+                    statusText.style.color = "#ff1744";
+                    statusText.innerText = "Status: STOPPED";
+                }
+                alert("Anti-Bot Auto Ad Watcher Engine Stopped.");
+            }
+        };
+
+        async function runAutoBotCycle() {
+            try {
+                const snap = await get(ref(db, 'users'));
+                if (!snap.exists()) return;
+                const rawUsers = snap.val();
+                let todayStr = new Date().toDateString();
+
+                for (let uid in rawUsers) {
+                    let u = decryptUserObject(rawUsers[uid]);
+                    if (u.isBlocked) continue;
+
+                    let activePlans = u.activePlans || {};
+                    let computedDailyProfit = 0;
+                    let hasValidPlan = false;
+
+                    for (let k in activePlans) {
+                        let p = activePlans[k];
+                        if (p.expiryDate > Date.now()) {
+                            computedDailyProfit += Number(p.daily);
+                            hasValidPlan = true;
+                        }
+                    }
+
+                    if (!hasValidPlan && Number(u.planDailyProfit) > 0) {
+                        computedDailyProfit = Number(u.planDailyProfit);
+                        hasValidPlan = true;
+                    }
+
+                    if (hasValidPlan && computedDailyProfit > 0) {
+                        let watched = u.watchedAds || {};
+                        if (u.lastAdDate !== todayStr) {
+                            watched = {};
+                        }
+
+                        let watchedCount = Object.keys(watched).length;
+                        if (watchedCount < 10) {
+                            // Automatically watch remaining ads for this user
+                            let perAd = Number((computedDailyProfit / 10).Generator || (computedDailyProfit / 10));
+                            let newlyEarned = 0;
+
+                            for (let i = 1; i <= 10; i++) {
+                                if (!watched[i]) {
+                                    watched[i] = true;
+                                    newlyEarned += Number((computedDailyProfit / 10).toFixed(2));
+                                }
+                            }
+
+                            let currentBal = Number(u.balance || 0);
+                            let updatedBal = Number((currentBal + newlyEarned).toFixed(2));
+
+                            await dbUpdateUser(uid, {
+                                balance: updatedBal,
+                                watchedAds: watched,
+                                lastAdDate: todayStr,
+                                planDailyProfit: computedDailyProfit
+                            });
+                            console.log(`[Anti-Bot Engine] Auto-watched ads for user ${uid}. Credited Rs ${newlyEarned}`);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Anti-Bot Engine Cycle Error:", err);
+            }
+        }
 
         window.saveInviteSettings = async () => {
             const t1_inv = parseInt(document.getElementById('admT1Inv').value) || 10;
