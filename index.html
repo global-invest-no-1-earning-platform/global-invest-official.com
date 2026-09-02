@@ -256,7 +256,6 @@
             color: #fff !important;
         }
 
-        /* Hardware Accelerated Smooth Page Fade-In Transition */
         .page {
             animation: fadeInPage 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
             will-change: opacity, transform;
@@ -382,8 +381,17 @@
                 </div>
                 
                 <div class="menu-item" onclick="showPage('historyPage')"><div class="menu-icon"><i class="fa-solid fa-receipt"></i></div><span>History</span></div>
+                
                 <div class="menu-item" onclick="showPage('teamPage')"><div class="menu-icon"><i class="fa-solid fa-users-viewfinder"></i></div><span>Team</span></div>
                 
+                <div class="menu-item" onclick="showPage('networkPage')">
+                    <div class="menu-icon" style="color:#9c27b0; background:#f3e5f5;">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <span class="glow-update-badge hidden" id="networkUpdateBadge">NEW</span>
+                    </div>
+                    <span>Network</span>
+                </div>
+
                 <div class="menu-item" onclick="clickInviteEarn(this)">
                     <div class="menu-icon" style="color:#e91e63;">
                         <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -404,7 +412,40 @@
                 
                 <div class="menu-item" onclick="openSocial('whatsapp')"><div class="menu-icon" style="color:#25d366;"><i class="fa-brands fa-whatsapp"></i></div><span>WhatsApp</span></div>
                 <div class="menu-item" onclick="openSocial('telegram')"><div class="menu-icon" style="color:#24A1DE;"><i class="fa-brands fa-telegram"></i></div><span>Telegram</span></div>
-                <div class="menu-item" onclick="openSocial('indigo')"><div class="menu-icon" style="color:#E4405F;"><i class="fa-brands fa-instagram"></i></div><span>Instagram</span></div>
+            </div>
+        </div>
+
+        <!-- NEW NETWORK BONUS PAGE (3-LEVEL COMMISSION SYSTEM) -->
+        <div id="networkPage" class="page hidden">
+            <div class="section-title">3-Level Network Bonus</div>
+            <div class="card" style="text-align:center;">
+                <h3 style="color:var(--primary); margin-bottom:15px;"><i class="fa-solid fa-sitemap"></i> Multi-Level Earnings</h3>
+                
+                <div style="display:flex; justify-content:space-around; margin-bottom:20px;">
+                    <div style="background:#e3f2fd; padding:15px; border-radius:15px; width:30%; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <p style="font-size:11px; font-weight:bold; color:var(--primary);">Level 1</p>
+                        <h2 style="color:var(--secondary); font-size:24px; font-weight:800;" id="net_l1_comm">6%</h2>
+                        <p style="font-size:10px; color:#555;">Direct Invites</p>
+                    </div>
+                    <div style="background:#f3e5f5; padding:15px; border-radius:15px; width:30%; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <p style="font-size:11px; font-weight:bold; color:#7b1fa2;">Level 2</p>
+                        <h2 style="color:#9c27b0; font-size:24px; font-weight:800;" id="net_l2_comm">3%</h2>
+                        <p style="font-size:10px; color:#555;">Sub Invites</p>
+                    </div>
+                    <div style="background:#e8f5e9; padding:15px; border-radius:15px; width:30%; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <p style="font-size:11px; font-weight:bold; color:#2e7d32;">Level 3</p>
+                        <h2 style="color:#4caf50; font-size:24px; font-weight:800;" id="net_l3_comm">1%</h2>
+                        <p style="font-size:10px; color:#555;">Deep Invites</p>
+                    </div>
+                </div>
+
+                <div style="text-align:left; background:#fff3e0; border: 1.5px dashed #ffb300; padding:15px; border-radius:15px; font-size:12px; color:#333; line-height:1.6;">
+                    <h4 style="color:#e65100; margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-circle-info"></i> How does it work?</h4>
+                    <p style="margin-bottom:10px;"><b>Level 1 (Direct):</b> When someone registers using your invite link and activates a package, you instantly get a <b style="color:var(--primary); font-size:14px;"><span id="desc_l1">6%</span></b> commission added to your wallet.</p>
+                    <p style="margin-bottom:10px;"><b>Level 2 (Indirect):</b> If your direct invite (Level 1) invites someone else, and they activate a package, your Level 1 gets <span id="desc_l1_sub">6%</span>, and YOU get a <b style="color:#9c27b0; font-size:14px;"><span id="desc_l2">3%</span></b> bonus commission automatically!</p>
+                    <p style="margin-bottom:10px;"><b>Level 3 (Deep):</b> If your Level 2 invites a new member who activates a plan, YOU still earn a <b style="color:#2e7d32; font-size:14px;"><span id="desc_l3">1%</span></b> deep referral commission. This means your earnings scale automatically with your network depth!</p>
+                    <p style="margin-top:12px; padding-top:10px; border-top: 1px solid #ffd54f; font-weight:bold; color:var(--primary); text-align:center;">All commissions are credited directly to your wallet automatically upon package activation.</p>
+                </div>
             </div>
         </div>
 
@@ -598,7 +639,7 @@
         <div id="teamPage" class="page hidden">
             <div class="section-title">My Team Details</div>
             <div class="card" style="text-align:center;">
-                <p style="font-size:12px; margin-bottom:10px; color:#555;"><span id="clientCommLabel">get 6% commission!</span></p>
+                <p style="font-size:12px; margin-bottom:10px; color:#555;"><span id="clientCommLabel">get 6% Level 1 commission!</span></p>
                 <div style="display:flex; align-items: center; gap:10px; margin-bottom: 20px;">
                     <input type="text" id="inviteLinkBox" readonly style="flex:1; padding:12px; border-radius:10px; border:1px solid #ddd; font-size:10px; font-weight:bold; background:#f5f5f5;">
                     <button style="background:var(--secondary); color:white; border:none; padding:12px 18px; border-radius:10px; font-size:14px; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onclick="copyInviteLink()"><i class="fa-solid fa-copy"></i></button>
@@ -831,6 +872,16 @@
                     <button class="btn-primary" onclick="saveRegBonusSettings()">Save Registration Bonus</button>
                 </div>
 
+                <!-- 🚨 EDIT COMMISSION MULTI-LEVEL SETTINGS HERE 🚨 -->
+                <div class="admin-card">
+                    <h3 style="margin-bottom:10px; color:var(--warning);"><i class="fa-solid fa-network-wired"></i> Multi-Level Referral Commission</h3>
+                    <p style="font-size:11px; color:#555; margin-bottom:15px;">Setup how commission is distributed when an invited user successfully buys a VIP package.</p>
+                    <div class="input-group"><label>Level 1 Commission (%) - Direct Invites</label><input type="number" id="admCommL1" placeholder="6"></div>
+                    <div class="input-group"><label>Level 2 Commission (%) - Indirect Invites</label><input type="number" id="admCommL2" placeholder="3"></div>
+                    <div class="input-group"><label>Level 3 Commission (%) - Deep Invites</label><input type="number" id="admCommL3" placeholder="1"></div>
+                    <button class="btn-primary" onclick="saveCommissionSettings()">Save Commission Rates</button>
+                </div>
+
                 <div class="admin-card">
                     <h3 style="margin-bottom:10px; color:var(--primary);"><i class="fa-solid fa-credit-card"></i> Edit Payment Account</h3>
                     <h4 style="color:var(--secondary); margin-top:10px; margin-bottom:5px;">Easypaisa Account</h4>
@@ -842,12 +893,6 @@
                     <div class="input-group"><label>JazzCash Account Number</label><input type="text" id="admJCNumber" placeholder="03XXXXXXXXX"></div>
                     <div class="input-group"><label>JazzCash Account Holder Name</label><input type="text" id="admJCName" placeholder="Ali Raza"></div>
                     <button class="btn-primary" onclick="savePaymentSettings()">Save Payment details</button>
-                </div>
-
-                <div class="admin-card">
-                    <h3 style="margin-bottom:10px; color:var(--warning);"><i class="fa-solid fa-gift"></i> referral commission rate</h3>
-                    <div class="input-group"><label>Commission Rate (%)</label><input type="number" id="admCommission" placeholder="6"></div>
-                    <button class="btn-primary" onclick="saveCommissionSettings()">Save Commission Rate</button>
                 </div>
 
                 <div class="admin-card">
@@ -869,7 +914,6 @@
                     <h3 style="margin-bottom:10px;">Social App Links</h3>
                     <div class="input-group"><label>WhatsApp Link</label><input type="text" id="admWA" placeholder="https://chat.whatsapp.com/..."></div>
                     <div class="input-group"><label>Telegram Link</label><input type="text" id="admTG" placeholder="https://t.me/..."></div>
-                    <div class="input-group"><label>Instagram Link</label><input type="text" id="admInsta" placeholder="https://instagram.com/..."></div>
                     <div class="input-group"><label>Website Link</label><input type="text" id="admWeb" placeholder="https://..."></div>
                     <div class="input-group"><label>Agent Support WhatsApp Number</label><input type="text" id="admAgentWA" placeholder="923047374445"></div>
                     
@@ -1394,13 +1438,19 @@
         setInterval(updateTimerCountdown, 1000);
 
         window.onload = () => {
-            const expiryTime = 1786819200000;
+            const expiryTime = 1786819200000; // Old badges
             if (Date.now() < expiryTime) {
                 document.getElementById('promoUpdateBadge')?.classList.remove('hidden');
                 document.getElementById('salaryUpdateBadge')?.classList.remove('hidden');
                 document.getElementById('bellUpdateBadge')?.classList.remove('hidden');
                 document.getElementById('timerUpdateBadge')?.classList.remove('hidden');
                 document.getElementById('aboutUpdateBadge')?.classList.remove('hidden');
+            }
+
+            // NEW 48-HOURS EXPIRY FOR "NEW" NETWORK BADGE (Will hide around Sep 4, 2026, 10 PM PKT)
+            const networkBadgeExpiry = 1788531600000;
+            if (Date.now() < networkBadgeExpiry) {
+                document.getElementById('networkUpdateBadge')?.classList.remove('hidden');
             }
 
             if (localStorage.getItem('theme') === 'dark') {
@@ -1475,7 +1525,7 @@
         window.renderClientPlans = (plansList) => {
             const pContainer = document.getElementById('plansCont');
             pContainer.innerHTML = '';
-            const commPercent = globalSettings.commission !== undefined ? globalSettings.commission : 6;
+            const commL1 = globalSettings.commission_L1 !== undefined ? globalSettings.commission_L1 : (globalSettings.commission !== undefined ? globalSettings.commission : 6);
             
             plansList.forEach(p => {
                 let popularBadge = p.isPopular ? `<span style="background:var(--warning); color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:8px; margin-left:8px;"> POPULAR</span>` : '';
@@ -1487,7 +1537,7 @@
                             <div class="p-item"><i class="fa-solid fa-coins"></i><small>Daily Profit</small><p>Rs ${p.daily}</p></div>
                             <div class="p-item"><i class="fa-solid fa-chart-line"></i><small>Total Profit</small><p>Rs ${p.total || (p.daily * 55)}</p></div>
                             <div class="p-item"><i class="fa-regular fa-calendar-check"></i><small>Validity</small><p>55 Days</p></div>
-                            <div class="p-item"><i class="fa-solid fa-gift"></i><small>Commission</small><p>L1: ${commPercent}%</p></div>
+                            <div class="p-item"><i class="fa-solid fa-gift"></i><small>Commission</small><p>L1: ${commL1}%</p></div>
                         </div>
                         <button class="btn-primary" style="margin: 0 15px 15px; width: calc(100% - 30px);" onclick="initDeposit('${p.name}', ${p.price}, ${p.daily})"><i class="fa-solid fa-bolt"></i> ACTIVATE PLAN</button>
                     </div>
@@ -1521,7 +1571,19 @@
                     document.getElementById('clientPayName').innerText = "Account Name: " + pay.name;
                 }
 
-                document.getElementById('clientCommLabel').innerText = "get " + (globalSettings.commission !== undefined ? globalSettings.commission : 6) + "% commission!";
+                let cL1 = globalSettings.commission_L1 !== undefined ? globalSettings.commission_L1 : (globalSettings.commission !== undefined ? globalSettings.commission : 6);
+                let cL2 = globalSettings.commission_L2 !== undefined ? globalSettings.commission_L2 : 3;
+                let cL3 = globalSettings.commission_L3 !== undefined ? globalSettings.commission_L3 : 1;
+
+                document.getElementById('clientCommLabel').innerText = "get " + cL1 + "% Level 1 commission!";
+
+                if(document.getElementById('net_l1_comm')) document.getElementById('net_l1_comm').innerText = cL1 + "%";
+                if(document.getElementById('net_l2_comm')) document.getElementById('net_l2_comm').innerText = cL2 + "%";
+                if(document.getElementById('net_l3_comm')) document.getElementById('net_l3_comm').innerText = cL3 + "%";
+                if(document.getElementById('desc_l1')) document.getElementById('desc_l1').innerText = cL1 + "%";
+                if(document.getElementById('desc_l1_sub')) document.getElementById('desc_l1_sub').innerText = cL1 + "%";
+                if(document.getElementById('desc_l2')) document.getElementById('desc_l2').innerText = cL2 + "%";
+                if(document.getElementById('desc_l3')) document.getElementById('desc_l3').innerText = cL3 + "%";
 
                 let rb = globalSettings.rulebook || {};
                 document.getElementById('rbTitle').innerHTML = `<i class="fa-solid fa-bell"></i> ${rb.title || "NOTIFICATION"}`;
@@ -1540,7 +1602,6 @@
                     document.getElementById('rbLinkContainer').classList.add('hidden');
                 }
 
-                // Update configurable visual timer text 
                 let dtStr = globalSettings.profitDistributionTime || "05:00";
                 let distLabel = document.getElementById('distTimeLabel');
                 if (distLabel) distLabel.innerText = formatTime12Hour(dtStr) + " Morning";
@@ -1581,7 +1642,6 @@
             let recentDrop = new Date();
             recentDrop.setHours(targetH, targetM, 0, 0);
             if (now.getTime() < recentDrop.getTime()) {
-                // If it is currently before the drop time, the most recent drop was yesterday
                 recentDrop.setDate(recentDrop.getDate() - 1);
             }
 
@@ -1599,7 +1659,6 @@
 
                 dbUpdateUser(uid, updates).then(() => {
                     console.log(`[Timer Engine] Automatically credited Rs ${computedDailyProfit} to user ${uid}`);
-                    // If it's the currently logged-in user, update their visual balance immediately
                     if (currentUser && uid === currentUser.uid) {
                         userData.balance = updatedBal;
                         userData.lastTimerCreditedTime = newCreditedTime;
@@ -1612,7 +1671,6 @@
             }
         }
 
-        // Global 24/7 Background Cron Engine that checks all database users continuously
         function initGlobal247BackgroundCron() {
             setInterval(async () => {
                 try {
@@ -1629,7 +1687,7 @@
                 } catch (err) {
                     console.log("[24/7 Cron Sync Error]: ", err.message);
                 }
-            }, 30000); // Runs every 30 seconds across the global pool
+            }, 30000); 
         }
 
         onAuthStateChanged(auth, async (user) => {
@@ -2266,7 +2324,6 @@
             showPage('adminPage');
             document.getElementById('admWA').value = globalSettings.whatsapp || "";
             document.getElementById('admTG').value = globalSettings.telegram || "";
-            document.getElementById('admInsta').value = globalSettings.indigo || globalSettings.instagram || "";
             document.getElementById('admWeb').value = globalSettings.website || "";
             document.getElementById('admAgentWA').value = globalSettings.agentWhatsapp || "923047374445";
             
@@ -2285,7 +2342,11 @@
             document.getElementById('admJCNumber').value = payJC.number || "";
             document.getElementById('admJCName').value = payJC.name || "";
 
-            document.getElementById('admCommission').value = globalSettings.commission !== undefined ? globalSettings.commission : 6;
+            // Here Admin views/edits Multi-Level rates
+            document.getElementById('admCommL1').value = globalSettings.commission_L1 !== undefined ? globalSettings.commission_L1 : (globalSettings.commission !== undefined ? globalSettings.commission : 6);
+            document.getElementById('admCommL2').value = globalSettings.commission_L2 !== undefined ? globalSettings.commission_L2 : 3;
+            document.getElementById('admCommL3').value = globalSettings.commission_L3 !== undefined ? globalSettings.commission_L3 : 1;
+            
             document.getElementById('admRegBonus').value = globalSettings.registrationBonus !== undefined ? globalSettings.registrationBonus : 10;
 
             let is = globalSettings.inviteSettings || defaultInviteSettings;
@@ -2459,24 +2520,48 @@
             }
 
             let pDep = Math.max(0, (Number(u.pendingDep) || 0) - Number(amount));
-            let commPercent = globalSettings.commission !== undefined ? Number(globalSettings.commission) : 6;
-
+            
+            // --- 3-LEVEL REFERRAL COMMISSION LOGIC ---
             if(u.referredByCode) {
                 let allUsersSnap = await get(ref(db, 'users'));
                 let rawUsers = allUsersSnap.val();
+                let userMap = {};
+                let codeToUid = {};
                 for(let key in rawUsers) {
-                    let refUser = decryptUserObject(rawUsers[key]);
-                    if(refUser.inviteCode === u.referredByCode) {
-                        let comm = Number(amount) * (commPercent / 100);
-                        let isFirstPlan = (Number(u.totalInvest || 0) === 0);
-                        await dbUpdateUser(key, {
-                            balance: Number(((refUser.balance || 0) + comm).toFixed(2)),
-                            teamActive: isFirstPlan ? (refUser.teamActive || 0) + 1 : (refUser.teamActive || 0)
-                        });
-                        break;
+                    let decU = decryptUserObject(rawUsers[key]);
+                    userMap[key] = decU;
+                    codeToUid[decU.inviteCode] = key;
+                }
+
+                let commL1 = globalSettings.commission_L1 !== undefined ? Number(globalSettings.commission_L1) : (globalSettings.commission !== undefined ? Number(globalSettings.commission) : 6);
+                let commL2 = globalSettings.commission_L2 !== undefined ? Number(globalSettings.commission_L2) : 3;
+                let commL3 = globalSettings.commission_L3 !== undefined ? Number(globalSettings.commission_L3) : 1;
+                let levels = [commL1, commL2, commL3];
+                
+                let isFirstPlan = (Number(u.totalInvest || 0) === 0);
+                let currentLevelUserCode = u.referredByCode;
+                
+                for(let i=0; i<3; i++) {
+                    if(!currentLevelUserCode) break;
+                    let parentUid = codeToUid[currentLevelUserCode];
+                    if(!parentUid) break;
+                    
+                    let parentUser = userMap[parentUid];
+                    let comm = Number(amount) * (levels[i] / 100);
+                    
+                    let updates = {
+                        balance: Number(((parentUser.balance || 0) + comm).toFixed(2))
+                    };
+                    
+                    if(i === 0 && isFirstPlan) {
+                        updates.teamActive = (parentUser.teamActive || 0) + 1;
                     }
+                    
+                    await dbUpdateUser(parentUid, updates);
+                    currentLevelUserCode = parentUser.referredByCode; // Navigate recursively upwards
                 }
             }
+            // ------------------------------------------
             
             let currentBal = Number(u.balance || 0);
             let instantBonusProfit = Number(daily);
@@ -2621,13 +2706,17 @@
             } catch(e) { alert(e.message); } finally { loader.classList.add('hidden'); }
         };
 
+        // This function handles saving the Multi-level Commission Settings!
         window.saveCommissionSettings = async () => {
-            const commissionVal = parseFloat(document.getElementById('admCommission').value);
-            if (isNaN(commissionVal)) return alert("Enter valid numeric value!");
+            const l1 = parseFloat(document.getElementById('admCommL1').value);
+            const l2 = parseFloat(document.getElementById('admCommL2').value);
+            const l3 = parseFloat(document.getElementById('admCommL3').value);
+            if (isNaN(l1) || isNaN(l2) || isNaN(l3)) return alert("Enter valid numeric values!");
             loader.classList.remove('hidden');
             try {
-                await update(ref(db, 'settings'), { commission: commissionVal });
-                alert("Commission updated!");
+                // commission variable kept for backwards compatibility
+                await update(ref(db, 'settings'), { commission_L1: l1, commission_L2: l2, commission_L3: l3, commission: l1 });
+                alert("Multi-Level Commission rates updated successfully!");
             } catch(e) { alert(e.message); } finally { loader.classList.add('hidden'); }
         };
 
@@ -2654,7 +2743,6 @@
             await update(ref(db, 'settings'), { 
                 whatsapp: document.getElementById('admWA').value, 
                 telegram: document.getElementById('admTG').value, 
-                indigo: document.getElementById('admInsta').value, 
                 website: document.getElementById('admWeb').value, 
                 withdrawCondition: document.getElementById('admWithCond').value, 
                 minWithdraw: document.getElementById('admMinWith').value,
