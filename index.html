@@ -1099,7 +1099,7 @@
         }
 
         window.manualUpdateApp = () => {
-            loader.innerHTML = '<i class="fa-solid fa-rotate fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Updating App & Clearing Cache...</p>';
+            loader.innerHTML = '<i class="fa-solid fa-rotate fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Updating & Clearing Cache...</p>';
             loader.classList.remove('hidden');
             localStorage.setItem('last_app_update', Date.now());
             setTimeout(() => { window.location.reload(true); }, 1000);
@@ -1528,7 +1528,7 @@
                 // Update configurable visual timer text 
                 let dtStr = globalSettings.profitDistributionTime || "05:00";
                 let distLabel = document.getElementById('distTimeLabel');
-                if (distLabel) distLabel.innerText = formatTime12Hour(dtStr) + " Sharp";
+                if (distLabel) distLabel.innerText = formatTime12Hour(dtStr) + " Morning";
             }
         });
 
