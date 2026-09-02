@@ -759,8 +759,8 @@
             </div>
 
             <div id="adm-support" class="admin-tab-content" style="padding:10px;">
-                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Tickets Requests</h3>
-                <div id="adminTicketsList" style="font-size:12px;">Loading support tickets...</div>
+                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Requests</h3>
+                <div id="adminTicketsList" style="font-size:12px;">Loading support...</div>
             </div>
             
             <div id="adm-set" class="admin-tab-content" style="padding:10px;">
@@ -1350,7 +1350,7 @@
 
             const timerEl = document.getElementById('nextPayoutCountdown');
             if (!hasActivePlan) {
-                if(timerEl) timerEl.innerText = "Stopped (No Active Plan)";
+                if(timerEl) timerEl.innerText = " No Active Plan";
                 return;
             }
 
