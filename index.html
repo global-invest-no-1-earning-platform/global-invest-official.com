@@ -265,205 +265,9 @@
             from { opacity: 0; transform: translate3d(0, 12px, 0); }
             to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
-
-        /* ================= PAKISTAN INDEPENDENCE DAY TEMPORARY OVERRIDES ================= */
-        body.pak-independence-active {
-            --primary: #00401A !important;
-            --secondary: #006629 !important;
-            --accent: #19873d !important;
-            --bg: #f4faf6 !important;
-            --text: #003013 !important;
-            background-color: var(--bg) !important;
-            background-image: radial-gradient(circle at top right, rgba(0, 102, 41, 0.08) 0%, transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(0, 64, 26, 0.08) 0%, transparent 40%) !important;
-        }
-        body.pak-independence-active .logo {
-            color: #006629 !important;
-            text-shadow: 0 0 5px rgba(0,102,41,0.2);
-        }
-        body.pak-independence-active .dash-card {
-            background: linear-gradient(135deg, #00401A, #006629) !important;
-            box-shadow: 0 10px 20px rgba(0, 64, 26, 0.3) !important;
-            position: relative;
-            overflow: hidden;
-        }
-        body.pak-independence-active .dash-card::after {
-            content: "🌙";
-            position: absolute;
-            right: -15px;
-            bottom: -15px;
-            font-size: 110px;
-            opacity: 0.12;
-            transform: rotate(-35deg);
-            color: #fff;
-            pointer-events: none;
-        }
-        body.pak-independence-active .btn-primary {
-            background: var(--secondary) !important;
-            box-shadow: 0 4px 6px rgba(0,102,41,0.15) !important;
-        }
-        body.pak-independence-active .status-box i {
-            background: #e1f5fe !important;
-            color: var(--secondary) !important;
-        }
-
-        /* 3D scrolling ticker bar at the very top */
-        .celebration-ticker-bar {
-            width: 100%;
-            background: linear-gradient(135deg, #002b11, #00401a);
-            color: white;
-            padding: 12px 0;
-            font-size: 16px;
-            font-weight: 700;
-            text-align: center;
-            overflow: hidden;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border-bottom: 4px solid #00e676;
-            animation: border7colors 8s infinite linear;
-            transform: perspective(400px) rotateX(1.5deg);
-            z-index: 1001;
-            position: relative;
-            user-select: none;
-            will-change: box-shadow, border-color;
-        }
-        .ticker-text-wrapper {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marqueeEffect 35s infinite linear;
-            will-change: transform;
-        }
-        .ticker-text-wrapper span {
-            display: inline-block;
-            padding: 0 35px;
-            text-shadow: 0 0 8px #00e676;
-            animation: glow7colors 8s infinite linear;
-            will-change: color, text-shadow;
-        }
-
-        /* Top Festive Celebration Banner Below Header */
-        .independence-banner {
-            background: linear-gradient(90deg, #00401A, #006629, #00401A);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            animation: slideDown 0.5s ease-out, pulseBanner 3s infinite ease-in-out;
-            z-index: 999;
-            position: relative;
-            border-bottom: 2.5px solid rgba(255,255,255,0.2);
-        }
-        .independence-banner .banner-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .independence-banner .celebrate-text {
-            color: #a3ffc2;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .independence-banner .flag-icon {
-            font-size: 18px;
-            animation: waveFlag 1.5s infinite ease-in-out;
-            display: inline-block;
-        }
-        .independence-timer-widget {
-            font-family: monospace;
-            background: rgba(0,0,0,0.2);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.25);
-            margin-left: 5px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        }
-
-        /* Particle / Confetti Layer */
-        .confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-            overflow: hidden;
-        }
-        .confetti-piece {
-            position: absolute;
-            top: -50px;
-            font-size: 18px;
-            opacity: 0.85;
-            will-change: transform;
-            animation: fall linear infinite;
-        }
-        .confetti-piece.green {
-            color: #006629;
-            text-shadow: 0 0 5px rgba(0,102,41,0.5);
-        }
-        .confetti-piece.white {
-            color: #ffffff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 2px #000;
-        }
-
-        @keyframes marqueeEffect {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
-
-        @keyframes glow7colors {
-            0% { color: #ffffff; text-shadow: 0 0 8px #00e676, 0 0 15px #00e676; }
-            14% { color: #a3ffc2; text-shadow: 0 0 8px #00c853, 0 0 15px #00c853; }
-            28% { color: #ffffff; text-shadow: 0 0 8px #ffffff, 0 0 15px #e0e0e0; }
-            42% { color: #fff59d; text-shadow: 0 0 8px #ffeb3b, 0 0 15px #ffb300; }
-            57% { color: #b2dfdb; text-shadow: 0 0 8px #26a69a, 0 0 15px #00796b; }
-            71% { color: #80deea; text-shadow: 0 0 8px #00bcd4, 0 0 15px #00838f; }
-            85% { color: #c8e6c9; text-shadow: 0 0 8px #4caf50, 0 0 15px #1b5e20; }
-            100% { color: #ffffff; text-shadow: 0 0 8px #00e676, 0 0 15px #00e676; }
-        }
-
-        @keyframes border7colors {
-            0% { border-bottom-color: #00e676; box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4); }
-            14% { border-bottom-color: #00c853; box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4); }
-            28% { border-bottom-color: #ffffff; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3); }
-            42% { border-bottom-color: #ffeb3b; box-shadow: 0 4px 15px rgba(255, 235, 59, 0.4); }
-            57% { border-bottom-color: #26a69a; box-shadow: 0 4px 15px rgba(38, 166, 154, 0.4); }
-            71% { border-bottom-color: #00bcd4; box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4); }
-            85% { border-bottom-color: #4caf50; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
-            100% { border-bottom-color: #00e676; box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4); }
-        }
-
-        @keyframes slideDown {
-            from { transform: translate3d(0, -100%, 0); }
-            to { transform: translate3d(0, 0, 0); }
-        }
-        @keyframes pulseBanner {
-            0%, 100% { opacity: 0.95; }
-            50% { opacity: 1; }
-        }
-        @keyframes waveFlag {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(15deg) scale(1.1); }
-        }
-        @keyframes fall {
-            0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
-            100% { transform: translate3d(50px, 105vh, 0) rotate(360deg); opacity: 0; }
-        }
     </style>
 </head>
 <body>
-
-    <!-- 3D Scrolling Glowing Ticker Bar -->
-    <div id="independenceTicker" class="celebration-ticker-bar hidden">
-        <div class="ticker-text-wrapper" id="tickerWrapper"></div>
-    </div>
 
     <div id="loader"><i class="fa-solid fa-spinner fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Loading System...</p></div>
 
@@ -1513,6 +1317,22 @@
         }
 
         function updateTimerCountdown() {
+            let hasActivePlan = false;
+            if (userData && userData.activePlans) {
+                for (let k in userData.activePlans) {
+                    if (userData.activePlans[k].expiryDate > Date.now()) {
+                        hasActivePlan = true;
+                        break;
+                    }
+                }
+            }
+
+            const timerEl = document.getElementById('nextPayoutCountdown');
+            if (!hasActivePlan) {
+                if(timerEl) timerEl.innerText = "Stopped (No Active Plan)";
+                return;
+            }
+
             const now = new Date();
             let next5AM = new Date();
             next5AM.setHours(5, 0, 0, 0);
@@ -1524,78 +1344,13 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            const timerEl = document.getElementById('nextPayoutCountdown');
             if(timerEl) {
                 timerEl.innerText = `${hours.toString().padStart(2, '0')}h : ${minutes.toString().padStart(2, '0')}m : ${seconds.toString().padStart(2, '0')}s`;
             }
         }
         setInterval(updateTimerCountdown, 1000);
 
-        function initIndependenceEffects() {
-            const ticker = document.getElementById('independenceTicker');
-            const wrapper = document.getElementById('tickerWrapper');
-            if (ticker && wrapper) {
-                ticker.classList.remove('hidden');
-                let rawText = "";
-                for (let i = 0; i < 6; i++) {
-                    rawText += `<span>🇵🇰 یومِ آزادی مبارک ہو! پاکستان زندہ باد! 🇵🇰</span>`;
-                    rawText += `<span>🇵🇰 Happy Independence Day! Jashn-e-Azadi Mubarak! 🇵🇰</span>`;
-                }
-                wrapper.innerHTML = rawText + rawText;
-            }
-
-            const banner = document.createElement('div');
-            banner.className = 'independence-banner';
-            banner.innerHTML = `
-                <div class="banner-content">
-                    <span class="flag-icon">🇵🇰</span> 
-                    <strong>79th Independence Day Special!</strong> 
-                    <span class="celebrate-text">Jashn-e-Azadi Mubarak</span> 
-                    <span class="independence-timer-widget" id="indEventCountdown">00:00:00</span>
-                    <span class="flag-icon">🇵🇰</span>
-                </div>
-            `;
-            const header = document.querySelector('header');
-            if (header) header.insertAdjacentElement('afterend', banner);
-
-            const targetEndTime = 1786958100000; 
-            function updateEventCountdown() {
-                const diff = targetEndTime - Date.now();
-                if (diff <= 0) {
-                    if (document.getElementById('indEventCountdown')) document.getElementById('indEventCountdown').innerText = "Event Ended";
-                    return;
-                }
-                const hrs = Math.floor(diff / (1000 * 60 * 60));
-                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((diff % (1000 * 60)) / 1000);
-                const timerWidget = document.getElementById('indEventCountdown');
-                if (timerWidget) timerWidget.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            }
-            updateEventCountdown();
-            setInterval(updateEventCountdown, 1000);
-
-            const container = document.createElement('div');
-            container.className = 'confetti-container';
-            document.body.appendChild(container);
-            const shapes = ['★', '🌙', '🇵🇰'];
-            for (let i = 0; i < 40; i++) {
-                const piece = document.createElement('div');
-                piece.className = `confetti-piece ${i % 2 === 0 ? 'green' : 'white'}`;
-                piece.style.left = Math.random() * 100 + 'vw';
-                piece.style.animationDelay = Math.random() * 6 + 's';
-                piece.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                piece.innerHTML = shapes[i % shapes.length];
-                container.appendChild(piece);
-            }
-        }
-
         window.onload = () => {
-            const independenceEndTime = 1786958100000; 
-            if (Date.now() < independenceEndTime) {
-                document.body.classList.add('pak-independence-active');
-                initIndependenceEffects();
-            }
-
             const expiryTime = 1786819200000;
             if (Date.now() < expiryTime) {
                 document.getElementById('promoUpdateBadge')?.classList.remove('hidden');
@@ -1765,22 +1520,40 @@
 
             if (!hasValidPlan || computedDailyProfit <= 0) return;
 
-            let now = Date.now();
+            let now = new Date();
             let lastCredited = Number(uData.lastTimerCreditedTime || 0);
-            let oneDayMs = 24 * 60 * 60 * 1000;
 
-            if (lastCredited === 0 || (now - lastCredited >= oneDayMs)) {
+            // Calculate the most recent 5:00 AM timestamp
+            let recent5AM = new Date();
+            recent5AM.setHours(5, 0, 0, 0);
+            if (now.getTime() < recent5AM.getTime()) {
+                // If it is currently before 5:00 AM, then the most recent 5:00 AM was yesterday
+                recent5AM.setDate(recent5AM.getDate() - 1);
+            }
+
+            // If the user hasn't been credited since the most recent 5:00 AM, credit them instantly!
+            if (lastCredited < recent5AM.getTime()) {
                 let currentBal = Number(uData.balance || 0);
                 let updatedBal = Number((currentBal + computedDailyProfit).toFixed(2));
+                let newCreditedTime = Date.now();
                 
                 let updates = {
                     balance: updatedBal,
-                    lastTimerCreditedTime: now,
+                    lastTimerCreditedTime: newCreditedTime,
                     planDailyProfit: computedDailyProfit
                 };
 
                 dbUpdateUser(uid, updates).then(() => {
-                    console.log(`[24/7 Background Engine] Automatically credited Rs ${computedDailyProfit} to user ${uid}`);
+                    console.log(`[Timer Engine] Automatically credited Rs ${computedDailyProfit} to user ${uid}`);
+                    // If it's the currently logged-in user, update their visual balance immediately
+                    if (currentUser && uid === currentUser.uid) {
+                        userData.balance = updatedBal;
+                        userData.lastTimerCreditedTime = newCreditedTime;
+                        
+                        let balText = updatedBal.toFixed(2);
+                        if (document.getElementById('userBal')) document.getElementById('userBal').innerText = balText;
+                        if (document.getElementById('w_balShow')) document.getElementById('w_balShow').innerText = balText;
+                    }
                 });
             }
         }
@@ -2491,9 +2264,21 @@
             loadAdminTickets();
         };
 
-        window.togglePermanentAntiBot = (forceSync) => {
-            initGlobal247BackgroundCron();
-            alert("24/7 Background Engine synchronized & running actively across all users.");
+        window.togglePermanentAntiBot = async (forceSync) => {
+            try {
+                const snap = await get(ref(db, 'users'));
+                if (!snap.exists()) return;
+                const rawUsers = snap.val();
+                for (let uid in rawUsers) {
+                    let u = decryptUserObject(rawUsers[uid]);
+                    if (u && !u.isBlocked) {
+                        checkAndProcessAutomaticTimerEarnings(uid, u);
+                    }
+                }
+                alert("24/7 Background Engine forced sync executed across all active users successfully.");
+            } catch (err) {
+                alert("Error forcing sync: " + err.message);
+            }
         };
 
         window.saveInviteSettings = async () => {
