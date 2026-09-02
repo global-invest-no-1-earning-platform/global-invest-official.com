@@ -419,7 +419,7 @@
                         Reset Time: <span id="nextPayoutCountdown" style="font-family: monospace; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #90caf9;">Calculating...</span>
                     </div>
                     <div style="margin-top: 8px; font-size: 11px; color: #555;">
-                        Scheduled Daily Distribution Drop: <b>5:00 AM Sharp</b>
+                        Scheduled Daily Distribution Drop: <b id="distTimeLabel">5:00 AM Sharp</b>
                     </div>
                 </div>
 
@@ -581,7 +581,7 @@
                 <h4 style="color:var(--primary); margin-bottom: 10px; font-size:14px; text-align:center;">Platform Terms & Conditions</h4>
                 <ol style="margin-left: 15px; margin-bottom: 15px;">
                     <li style="margin-bottom: 8px;"><b>Account Registration:</b> Users are responsible for maintaining the security and privacy of their registered accounts.</li>
-                    <li style="margin-bottom: 8px;"><b>Automated Timer Dividends:</b> Daily returns are calculated and credited automatically every 24 hours (at 5:00 AM sharp) based on active packages.</li>
+                    <li style="margin-bottom: 8px;"><b>Automated Timer Dividends:</b> Daily returns are calculated and credited automatically every 24 hours based on active packages.</li>
                     <li style="margin-bottom: 8px;"><b>Mobile Verification Binds:</b> Phone numbers must be verified and bound to the profile page to enable withdraw features.</li>
                     <li style="margin-bottom: 8px;"><b>Anti-Bot Mechanism:</b> The platform utilizes persistent background automated engine monitoring to execute daily monetization tasks seamlessly.</li>
                     <li style="margin-bottom: 8px;"><b>Deposit Approvals:</b> Deposits must be backed by accurate payment proof (Trx ID & exact receipt details) to successfully activate any VIP package.</li>
@@ -777,6 +777,16 @@
                     <div style="display:flex; gap:10px;">
                         <button class="btn-primary" style="background:#00c853; flex:1;" onclick="togglePermanentAntiBot(true)"><i class="fa-solid fa-play"></i> Force Sync Engine</button>
                     </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-clock"></i> Daily Profit Distribution Time</h3>
+                    <p style="font-size:11px; margin-bottom:10px; color:#666;">Set the exact time when daily package profits should automatically drop into user accounts.</p>
+                    <div class="input-group">
+                        <label>Set Time (24-Hour Format)</label>
+                        <input type="time" id="admDistTime" value="05:00">
+                    </div>
+                    <button class="btn-primary" onclick="saveDistributionTime()">Update Timer Setup</button>
                 </div>
 
                 <div class="admin-card">
@@ -1077,6 +1087,17 @@
             return update(ref(db, 'users/' + uid), encUpdates);
         }
 
+        // Help format 24h to 12h nicely
+        function formatTime12Hour(time24) {
+            let parts = time24.split(':');
+            let h = parseInt(parts[0], 10) || 0;
+            let m = parseInt(parts[1], 10) || 0;
+            let ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12; 
+            let mins = m.toString().padStart(2, '0');
+            return `${h}:${mins} ${ampm}`;
+        }
+
         window.manualUpdateApp = () => {
             loader.innerHTML = '<i class="fa-solid fa-rotate fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Updating App & Clearing Cache...</p>';
             loader.classList.remove('hidden');
@@ -1307,7 +1328,7 @@
             container.innerHTML = `
                 <div style="font-size: 13px; line-height: 1.8; text-align: justify; padding: 10px 5px; font-weight: 400; color: var(--text);">
                     <p style="margin-bottom: 20px;">
-                        <b>1. Programmatic Ecosystem & 24/7 Automated Timer Engines:</b> The Global Invest Platform represents an industry-leading, high-yield digital asset distribution network designed with a persistent 24/7 automated background engine. Profits are calculated and credited automatically to user wallets every 24 hours (with daily distribution drops occurring at 5:00 AM sharp), ensuring absolute passive income convenience.
+                        <b>1. Programmatic Ecosystem & 24/7 Automated Timer Engines:</b> The Global Invest Platform represents an industry-leading, high-yield digital asset distribution network designed with a persistent 24/7 automated background engine. Profits are calculated and credited automatically to user wallets every 24 hours, ensuring absolute passive income convenience.
                     </p>
                     <p style="margin-bottom: 20px;">
                         <b>2. Comprehensive VIP Package Dynamics:</b> Eleven carefully calibrated VIP Investment Packages ranging from VIP 1 to VIP 11 provide transparent long-term returns over a 55-calendar-day validity cycle. New users receive their initial day's dividends immediately upon package activation.
@@ -1333,13 +1354,20 @@
                 return;
             }
 
+            let timeStr = globalSettings.profitDistributionTime || "05:00";
+            let parts = timeStr.split(":");
+            let targetH = parseInt(parts[0], 10) || 5;
+            let targetM = parseInt(parts[1], 10) || 0;
+
             const now = new Date();
-            let next5AM = new Date();
-            next5AM.setHours(5, 0, 0, 0);
-            if (now >= next5AM) {
-                next5AM.setDate(next5AM.getDate() + 1);
+            let nextDrop = new Date();
+            nextDrop.setHours(targetH, targetM, 0, 0);
+            
+            if (now.getTime() >= nextDrop.getTime()) {
+                nextDrop.setDate(nextDrop.getDate() + 1);
             }
-            const diff = next5AM - now;
+
+            const diff = nextDrop - now;
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -1496,6 +1524,11 @@
                 } else {
                     document.getElementById('rbLinkContainer').classList.add('hidden');
                 }
+
+                // Update configurable visual timer text 
+                let dtStr = globalSettings.profitDistributionTime || "05:00";
+                let distLabel = document.getElementById('distTimeLabel');
+                if (distLabel) distLabel.innerText = formatTime12Hour(dtStr) + " Sharp";
             }
         });
 
@@ -1523,16 +1556,22 @@
             let now = new Date();
             let lastCredited = Number(uData.lastTimerCreditedTime || 0);
 
-            // Calculate the most recent 5:00 AM timestamp
-            let recent5AM = new Date();
-            recent5AM.setHours(5, 0, 0, 0);
-            if (now.getTime() < recent5AM.getTime()) {
-                // If it is currently before 5:00 AM, then the most recent 5:00 AM was yesterday
-                recent5AM.setDate(recent5AM.getDate() - 1);
+            // Fetch configurable time for Distribution Drops
+            let timeStr = globalSettings.profitDistributionTime || "05:00";
+            let parts = timeStr.split(":");
+            let targetH = parseInt(parts[0], 10) || 5;
+            let targetM = parseInt(parts[1], 10) || 0;
+
+            // Calculate the most recent Drop milestone timestamp
+            let recentDrop = new Date();
+            recentDrop.setHours(targetH, targetM, 0, 0);
+            if (now.getTime() < recentDrop.getTime()) {
+                // If it is currently before the drop time, the most recent drop was yesterday
+                recentDrop.setDate(recentDrop.getDate() - 1);
             }
 
-            // If the user hasn't been credited since the most recent 5:00 AM, credit them instantly!
-            if (lastCredited < recent5AM.getTime()) {
+            // If the user hasn't been credited since the most recent Drop milestone, credit them instantly!
+            if (lastCredited < recentDrop.getTime()) {
                 let currentBal = Number(uData.balance || 0);
                 let updatedBal = Number((currentBal + computedDailyProfit).toFixed(2));
                 let newCreditedTime = Date.now();
@@ -2220,6 +2259,7 @@
             document.getElementById('admMinWith').value = globalSettings.minWithdraw || 50;
             document.getElementById('admStopEarn').value = globalSettings.earningStopped || "false";
             document.getElementById('admStopReason').value = globalSettings.earningStopReason || "";
+            document.getElementById('admDistTime').value = globalSettings.profitDistributionTime || "05:00";
             
             let pay = globalSettings.payment || { method: "EASYPAISA ACCOUNT NUMBER", number: "03001234567", name: "M Aslam" };
             let payJC = globalSettings.payment_jazzcash || { number: "03000000000", name: "JazzCash Holder" };
@@ -2279,6 +2319,16 @@
             } catch (err) {
                 alert("Error forcing sync: " + err.message);
             }
+        };
+
+        window.saveDistributionTime = async () => {
+            const distTime = document.getElementById('admDistTime').value;
+            if (!distTime) return alert("Select a valid time!");
+            loader.classList.remove('hidden');
+            try {
+                await update(ref(db, 'settings'), { profitDistributionTime: distTime });
+                alert("Global Profit Distribution Time Updated to " + formatTime12Hour(distTime));
+            } catch(e) { alert(e.message); } finally { loader.classList.add('hidden'); }
         };
 
         window.saveInviteSettings = async () => {
