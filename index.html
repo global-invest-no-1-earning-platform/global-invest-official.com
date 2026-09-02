@@ -570,7 +570,7 @@
         <div id="aboutPage" class="page hidden">
             <div class="section-title">About Platform</div>
             <div class="card" style="text-align:justify; max-height: 70vh; overflow-y: auto; font-size: 13px; line-height: 1.6; color: #333;">
-                <h2 style="color:var(--primary); margin-bottom:15px; text-align:center;">Global invest PLATFORM v5.4.0</h2>
+                <h2 style="color:var(--primary); margin-bottom:15px; text-align:center;">Global invest PLATFORM v9.1.0</h2>
                 <div id="aboutContentLines"></div>
             </div>
         </div>
@@ -1463,7 +1463,7 @@
             const commPercent = globalSettings.commission !== undefined ? globalSettings.commission : 6;
             
             plansList.forEach(p => {
-                let popularBadge = p.isPopular ? `<span style="background:var(--warning); color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:8px; margin-left:8px;">🔥 POPULAR</span>` : '';
+                let popularBadge = p.isPopular ? `<span style="background:var(--warning); color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:8px; margin-left:8px;"> POPULAR</span>` : '';
                 pContainer.innerHTML += `
                     <div class="plan-card">
                         <div class="plan-header"><span><i class="fa-solid fa-crown"></i> ${p.name} ${popularBadge}</span> <span>PREMIUM</span></div>
