@@ -419,7 +419,7 @@
                         Reset Time: <span id="nextPayoutCountdown" style="font-family: monospace; background: #fff; padding: 4px 8px; border-radius: 6px; border: 1px solid #90caf9;">Calculating...</span>
                     </div>
                     <div style="margin-top: 8px; font-size: 11px; color: #555;">
-                        Scheduled Daily Distribution Drop: <b id="distTimeLabel">5:00 AM Morning</b>
+                        Scheduled Daily Distribution Drop: <b id="distTimeLabel">5:00 AM Sharp</b>
                     </div>
                 </div>
 
@@ -570,7 +570,7 @@
         <div id="aboutPage" class="page hidden">
             <div class="section-title">About Platform</div>
             <div class="card" style="text-align:justify; max-height: 70vh; overflow-y: auto; font-size: 13px; line-height: 1.6; color: #333;">
-                <h2 style="color:var(--primary); margin-bottom:15px; text-align:center;">Global invest PLATFORM v9.1.0</h2>
+                <h2 style="color:var(--primary); margin-bottom:15px; text-align:center;">Global invest PLATFORM v5.4.0</h2>
                 <div id="aboutContentLines"></div>
             </div>
         </div>
@@ -619,14 +619,14 @@
                     <i class="fa-solid fa-clock"></i> <span id="salaryCountdownTimer">Calculating payout countdown...</span>
                 </div>
 
-                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones (members must activate a VIP package to count) to unlock your salary!</p>
+                <p style="font-size:13px; margin-bottom:15px; font-weight: 500; color: var(--text);">Complete invite milestones members must activate a VIP package to count to unlock your salary!</p>
                 <div style="background: #e3f2fd; padding:15px; border-radius:15px; margin-bottom: 20px;">
-                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites (With Plan)</p>
+                    <p style="font-size: 11px; color: var(--gray); text-transform: uppercase; font-weight: bold;">Valid Active Invites With Plan</p>
                     <h2 style="color: var(--primary); font-size: 32px; font-weight: 800;" id="ie_activeInvites">0</h2>
                     <p style="font-size: 12px; margin-top:5px; color:#555; font-weight: bold;" id="ie_salaryStatus">Salary Status: Locked</p>
                 </div>
                 
-                <h4 style="text-align: left; margin-bottom: 12px; color: var(--text); font-weight: 700; border-bottom: 1px solid #eee; padding-bottom: 8px;"><i class="fa-solid fa-gift"></i> Salary Tiers</h4>
+                <h4 style="text-align: left; margin-bottom: 12px; color: var(--text); font-weight: 700; border-bottom: 1px solid #eee; padding-bottom: 8px;"><i class="fa-solid fa-gift"></i> Salary Mission</h4>
                 <div id="milestonesList" style="text-align: left;"></div>
             </div>
         </div>
@@ -749,7 +749,7 @@
             </div>
 
             <div id="adm-user" class="admin-tab-content" style="padding:10px;">
-                <h3 style="margin:10px 0; color:white;">User Management</h3>
+                <h3 style="margin:10px 0; color:white;">User Management (Grouped by IP)</h3>
                 <div id="adminUserList" style="font-size:12px;">Loading Users...</div>
             </div>
 
@@ -759,8 +759,8 @@
             </div>
 
             <div id="adm-support" class="admin-tab-content" style="padding:10px;">
-                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Requests</h3>
-                <div id="adminTicketsList" style="font-size:12px;">Loading support...</div>
+                <h3 style="margin:10px 0; color:white;"><i class="fa-solid fa-headset"></i> Support Tickets Requests</h3>
+                <div id="adminTicketsList" style="font-size:12px;">Loading support tickets...</div>
             </div>
             
             <div id="adm-set" class="admin-tab-content" style="padding:10px;">
@@ -790,7 +790,7 @@
                 </div>
 
                 <div class="admin-card">
-                    <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-gift"></i> Salary Tiers & Frequency Settings</h3>
+                    <h3 style="margin-bottom:10px; color:var(--accent);"><i class="fa-solid fa-gift"></i> Salary Mission & Frequency Settings</h3>
                     <div class="input-group">
                         <label>Salary Frequency</label>
                         <select id="admSalaryType">
@@ -801,26 +801,26 @@
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 250px; overflow-y: auto; padding-right: 5px; border: 1px solid #eee; padding: 10px; border-radius: 8px; background: #fafafa;">
-                        <div class="input-group"><label>Tier 1 Invites</label><input type="number" id="admT1Inv" placeholder="10"></div>
-                        <div class="input-group"><label>Tier 1 Salary (Rs)</label><input type="number" id="admT1Amt" placeholder="200"></div>
-                        <div class="input-group"><label>Tier 2 Invites</label><input type="number" id="admT2Inv" placeholder="25"></div>
-                        <div class="input-group"><label>Tier 2 Salary (Rs)</label><input type="number" id="admT2Amt" placeholder="500"></div>
-                        <div class="input-group"><label>Tier 3 Invites</label><input type="number" id="admT3Inv" placeholder="50"></div>
-                        <div class="input-group"><label>Tier 3 Salary (Rs)</label><input type="number" id="admT3Amt" placeholder="820"></div>
-                        <div class="input-group"><label>Tier 4 Invites</label><input type="number" id="admT4Inv" placeholder="60"></div>
-                        <div class="input-group"><label>Tier 4 Salary (Rs)</label><input type="number" id="admT4Amt" placeholder="1100"></div>
-                        <div class="input-group"><label>Tier 5 Invites</label><input type="number" id="admT5Inv" placeholder="100"></div>
-                        <div class="input-group"><label>Tier 5 Salary (Rs)</label><input type="number" id="admT5Amt" placeholder="1600"></div>
-                        <div class="input-group"><label>Tier 6 Invites</label><input type="number" id="admT6Inv" placeholder="125"></div>
-                        <div class="input-group"><label>Tier 6 Salary (Rs)</label><input type="number" id="admT6Amt" placeholder="2400"></div>
-                        <div class="input-group"><label>Tier 7 Invites</label><input type="number" id="admT7Inv" placeholder="150"></div>
-                        <div class="input-group"><label>Tier 7 Salary (Rs)</label><input type="number" id="admT7Amt" placeholder="2900"></div>
-                        <div class="input-group"><label>Tier 8 Invites</label><input type="number" id="admT8Inv" placeholder="200"></div>
-                        <div class="input-group"><label>Tier 8 Salary (Rs)</label><input type="number" id="admT8Amt" placeholder="3500"></div>
-                        <div class="input-group"><label>Tier 9 Invites</label><input type="number" id="admT9Inv" placeholder="250"></div>
-                        <div class="input-group"><label>Tier 9 Salary (Rs)</label><input type="number" id="admT9Amt" placeholder="4200"></div>
-                        <div class="input-group"><label>Tier 10 Invites</label><input type="number" id="admT10Inv" placeholder="300"></div>
-                        <div class="input-group"><label>Tier 10 Salary (Rs)</label><input type="number" id="admT10Amt" placeholder="4800"></div>
+                        <div class="input-group"><label>Starter (T1) Invites</label><input type="number" id="admT1Inv" placeholder="10"></div>
+                        <div class="input-group"><label>Starter Salary (Rs)</label><input type="number" id="admT1Amt" placeholder="200"></div>
+                        <div class="input-group"><label>Bronze (T2) Invites</label><input type="number" id="admT2Inv" placeholder="25"></div>
+                        <div class="input-group"><label>Bronze Salary (Rs)</label><input type="number" id="admT2Amt" placeholder="500"></div>
+                        <div class="input-group"><label>Silver (T3) Invites</label><input type="number" id="admT3Inv" placeholder="50"></div>
+                        <div class="input-group"><label>Silver Salary (Rs)</label><input type="number" id="admT3Amt" placeholder="820"></div>
+                        <div class="input-group"><label>Gold (T4) Invites</label><input type="number" id="admT4Inv" placeholder="60"></div>
+                        <div class="input-group"><label>Gold Salary (Rs)</label><input type="number" id="admT4Amt" placeholder="1100"></div>
+                        <div class="input-group"><label>Platinum (T5) Invites</label><input type="number" id="admT5Inv" placeholder="100"></div>
+                        <div class="input-group"><label>Platinum Salary (Rs)</label><input type="number" id="admT5Amt" placeholder="1600"></div>
+                        <div class="input-group"><label>Diamond (T6) Invites</label><input type="number" id="admT6Inv" placeholder="125"></div>
+                        <div class="input-group"><label>Diamond Salary (Rs)</label><input type="number" id="admT6Amt" placeholder="2400"></div>
+                        <div class="input-group"><label>Crown (T7) Invites</label><input type="number" id="admT7Inv" placeholder="150"></div>
+                        <div class="input-group"><label>Crown Salary (Rs)</label><input type="number" id="admT7Amt" placeholder="2900"></div>
+                        <div class="input-group"><label>Ambassador (T8) Invites</label><input type="number" id="admT8Inv" placeholder="200"></div>
+                        <div class="input-group"><label>Ambassador Salary (Rs)</label><input type="number" id="admT8Amt" placeholder="3500"></div>
+                        <div class="input-group"><label>Royal (T9) Invites</label><input type="number" id="admT9Inv" placeholder="250"></div>
+                        <div class="input-group"><label>Royal Salary (Rs)</label><input type="number" id="admT9Amt" placeholder="4200"></div>
+                        <div class="input-group"><label>Director (T10) Invites</label><input type="number" id="admT10Inv" placeholder="300"></div>
+                        <div class="input-group"><label>Director Salary (Rs)</label><input type="number" id="admT10Amt" placeholder="4800"></div>
                     </div>
                     <button class="btn-primary" style="margin-top:10px;" onclick="saveInviteSettings()">Save Salary Settings</button>
                 </div>
@@ -1097,9 +1097,24 @@
             let mins = m.toString().padStart(2, '0');
             return `${h}:${mins} ${ampm}`;
         }
+        
+        // Define openSocial Globally
+        window.openSocial = (platform) => {
+            let link = "";
+            if(platform === 'whatsapp') link = globalSettings.whatsapp;
+            else if(platform === 'telegram') link = globalSettings.telegram;
+            else if(platform === 'indigo') link = globalSettings.indigo || globalSettings.instagram;
+            
+            if(link && link.trim() !== "") {
+                if(!link.startsWith("http")) link = "https://" + link;
+                window.open(link, "_blank");
+            } else {
+                alert(platform.toUpperCase() + " link is not configured by admin.");
+            }
+        };
 
         window.manualUpdateApp = () => {
-            loader.innerHTML = '<i class="fa-solid fa-rotate fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Updating & Clearing Cache...</p>';
+            loader.innerHTML = '<i class="fa-solid fa-rotate fa-spin fa-3x" style="margin-bottom:10px;"></i><p>Updating App & Clearing Cache...</p>';
             loader.classList.remove('hidden');
             localStorage.setItem('last_app_update', Date.now());
             setTimeout(() => { window.location.reload(true); }, 1000);
@@ -1350,7 +1365,7 @@
 
             const timerEl = document.getElementById('nextPayoutCountdown');
             if (!hasActivePlan) {
-                if(timerEl) timerEl.innerText = " No Active Plan";
+                if(timerEl) timerEl.innerText = "No Active Plan";
                 return;
             }
 
@@ -2068,16 +2083,16 @@
             const salaryStatusEl = document.getElementById('ie_salaryStatus');
             
             const tiers = [
-                { req: Number(is.t1_inv || 10), amt: Number(is.t1_amt || 200) },
-                { req: Number(is.t2_inv || 25), amt: Number(is.t2_amt || 500) }, 
-                { req: Number(is.t3_inv || 50), amt: Number(is.t3_amt || 820) },
-                { req: Number(is.t4_inv || 60), amt: Number(is.t4_amt || 1100) },
-                { req: Number(is.t5_inv || 100), amt: Number(is.t5_amt || 1600) },
-                { req: Number(is.t6_inv || 125), amt: Number(is.t6_amt || 2400) },
-                { req: Number(is.t7_inv || 150), amt: Number(is.t7_amt || 2900) },
-                { req: Number(is.t8_inv || 200), amt: Number(is.t8_amt || 3500) },
-                { req: Number(is.t9_inv || 250), amt: Number(is.t9_amt || 4200) },
-                { req: Number(is.t10_inv || 300), amt: Number(is.t10_amt || 4800) }
+                { name: "Starter", req: Number(is.t1_inv || 10), amt: Number(is.t1_amt || 200) },
+                { name: "Bronze", req: Number(is.t2_inv || 25), amt: Number(is.t2_amt || 500) }, 
+                { name: "Silver", req: Number(is.t3_inv || 50), amt: Number(is.t3_amt || 820) },
+                { name: "Gold", req: Number(is.t4_inv || 60), amt: Number(is.t4_amt || 1100) },
+                { name: "Platinum", req: Number(is.t5_inv || 100), amt: Number(is.t5_amt || 1600) },
+                { name: "Diamond", req: Number(is.t6_inv || 125), amt: Number(is.t6_amt || 2400) },
+                { name: "Crown", req: Number(is.t7_inv || 150), amt: Number(is.t7_amt || 2900) },
+                { name: "Ambassador", req: Number(is.t8_inv || 200), amt: Number(is.t8_amt || 3500) },
+                { name: "Royal Partner", req: Number(is.t9_inv || 250), amt: Number(is.t9_amt || 4200) },
+                { name: "Global Director", req: Number(is.t10_inv || 300), amt: Number(is.t10_amt || 4800) }
             ];
             
             let activeTier = null;
@@ -2119,7 +2134,7 @@
                     <div style="${cardBg} ${borderStyle} padding: 15px; margin-bottom: 12px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                             <div>
-                                <span style="font-size: 14px; font-weight: 700; color: var(--text);"><i class="fa-solid fa-users" style="color: var(--secondary);"></i> Tier ${index + 1}: ${t.req} Active Invites</span>
+                                <span style="font-size: 14px; font-weight: 700; color: var(--text);"><i class="fa-solid fa-medal" style="color: var(--secondary);"></i> ${t.name}: ${t.req} Invites</span>
                                 <p style="font-size: 12px; color: var(--gray); font-weight: 600; margin-top: 2px;">${salaryLabel}: <span style="color: var(--secondary); font-weight: 700;">Rs ${t.amt}</span></p>
                             </div>
                             <div>${statusBadge}</div>
@@ -2143,16 +2158,16 @@
             const salaryLabel = salaryType === "daily" ? "Daily Salary" : salaryType === "weekly" ? "Weekly Salary" : "Monthly Salary";
             
             const tiers = [
-                { req: Number(is.t1_inv || 10), amt: Number(is.t1_amt || 200) },
-                { req: Number(is.t2_inv || 25), amt: Number(is.t2_amt || 500) },
-                { req: Number(is.t3_inv || 50), amt: Number(is.t3_amt || 820) },
-                { req: Number(is.t4_inv || 60), amt: Number(is.t4_amt || 1100) },
-                { req: Number(is.t5_inv || 100), amt: Number(is.t5_amt || 1600) },
-                { req: Number(is.t6_inv || 125), amt: Number(is.t6_amt || 2400) },
-                { req: Number(is.t7_inv || 150), amt: Number(is.t7_amt || 2900) },
-                { req: Number(is.t8_inv || 200), amt: Number(is.t8_amt || 3500) },
-                { req: Number(is.t9_inv || 250), amt: Number(is.t9_amt || 4200) },
-                { req: Number(is.t10_inv || 300), amt: Number(is.t10_amt || 4800) }
+                { name: "Starter", req: Number(is.t1_inv || 10), amt: Number(is.t1_amt || 200) },
+                { name: "Bronze", req: Number(is.t2_inv || 25), amt: Number(is.t2_amt || 500) },
+                { name: "Silver", req: Number(is.t3_inv || 50), amt: Number(is.t3_amt || 820) },
+                { name: "Gold", req: Number(is.t4_inv || 60), amt: Number(is.t4_amt || 1100) },
+                { name: "Platinum", req: Number(is.t5_inv || 100), amt: Number(is.t5_amt || 1600) },
+                { name: "Diamond", req: Number(is.t6_inv || 125), amt: Number(is.t6_amt || 2400) },
+                { name: "Crown", req: Number(is.t7_inv || 150), amt: Number(is.t7_amt || 2900) },
+                { name: "Ambassador", req: Number(is.t8_inv || 200), amt: Number(is.t8_amt || 3500) },
+                { name: "Royal Partner", req: Number(is.t9_inv || 250), amt: Number(is.t9_amt || 4200) },
+                { name: "Global Director", req: Number(is.t10_inv || 300), amt: Number(is.t10_amt || 4800) }
             ];
 
             let userInvites = await getValidActiveInvitesCount(userData.inviteCode);
@@ -2209,13 +2224,13 @@
         window.submitSupportTicket = async () => {
             const category = document.getElementById('supCategory').value;
             const message = document.getElementById('supMessage').value.trim();
-            if(!message) return alert("Please describe your support ticket!");
+            if(!message) return alert("Please describe your support!");
 
             loader.classList.remove('hidden');
             try {
                 await set(push(ref(db, 'support_tickets')), { uid: currentUser.uid, category: category, message: message, status: "Pending", reply: "", time: Date.now() });
                 document.getElementById('supMessage').value = '';
-                alert("Support ticket submitted successfully!");
+                alert("Support submitted successfully!");
                 loadUserTickets();
             } catch(e) { alert(e.message); } finally { loader.classList.add('hidden'); }
         };
@@ -2251,7 +2266,7 @@
             showPage('adminPage');
             document.getElementById('admWA').value = globalSettings.whatsapp || "";
             document.getElementById('admTG').value = globalSettings.telegram || "";
-            document.getElementById('admInsta').value = globalSettings.instagram || "";
+            document.getElementById('admInsta').value = globalSettings.indigo || globalSettings.instagram || "";
             document.getElementById('admWeb').value = globalSettings.website || "";
             document.getElementById('admAgentWA').value = globalSettings.agentWhatsapp || "923047374445";
             
@@ -2367,7 +2382,7 @@
                             <label>Status Tag</label>
                             <select id="admPlanPopular_${index}">
                                 <option value="false" ${!p.isPopular ? 'selected' : ''}>Standard</option>
-                                <option value="true" ${p.isPopular ? 'selected' : ''}>Popular 🔥</option>
+                                <option value="true" ${p.isPopular ? 'selected' : ''}>Popular </option>
                             </select>
                         </div>
                         <button class="btn-primary" onclick="savePlanSettings(${index})">Save Package Details</button>
@@ -2710,38 +2725,60 @@
                 let html = "";
                 let totalUsers = 0, totalBal = 0, totalInv = 0;
 
+                // Group by IP
+                let ipGroups = {};
+
                 for (let uid in allUsersCache) {
                     let u = allUsersCache[uid];
                     totalUsers++;
                     totalBal += Number(u.balance || 0);
                     totalInv += Number(u.totalInvest || 0);
 
-                    let blockedStatus = u.isBlocked ? `<span style="color:red; font-weight:bold;">BLOCKED</span>` : `<span style="color:green; font-weight:bold;">ACTIVE</span>`;
-                    let plansHtml = "";
-                    let activePlans = u.activePlans || {};
-                    if (Object.keys(activePlans).length > 0) {
-                        plansHtml += `<div style="margin-top: 8px; padding: 10px; background: #eef2f6; border-radius: 8px; font-size:11px; color:#333;"><b>Active Packages:</b><ul style="margin-left: 15px; margin-top:5px; list-style-type:none; padding-left:0;">`;
-                        for (let k in activePlans) {
-                            let p = activePlans[k];
-                            plansHtml += `<li style="margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; background:white; padding:4px 8px; border-radius:4px; border:1px solid #ddd;"><span><b>${p.name}</b> (Rs ${p.price} | Daily: Rs ${p.daily})</span><button onclick="removeUserPlan('${uid}', '${k}')" style="background:#e53935; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:10px;">Remove</button></li>`;
-                        }
-                        plansHtml += `</ul></div>`;
-                    } else plansHtml += `<p style="font-size:11px; color:#666; margin-top:5px;"><b>Active Packages:</b> None</p>`;
+                    let ip = u.lastIP || "Unknown IP";
+                    if (!ipGroups[ip]) ipGroups[ip] = [];
+                    ipGroups[ip].push({ uid: uid, ...u });
+                }
 
-                    let actionBtn = !u.isBlocked ? `<button onclick="promptBlockUser('${uid}')" style="background:orange;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Block</button>` : `<button onclick="unblockUser('${uid}')" style="background:green;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Unblock</button>`;
-
-                    html += `
-                    <div class="user-row" style="color:#222;">
-                        <p><b>Name:</b> ${u.name || 'Unknown'} (${blockedStatus})</p>
-                        <p><b>Phone:</b> ${u.phone || 'Not Bound'} | <b>Pass:</b> ${u.password || 'Hidden'}</p>
-                        <p><b>Bal:</b> Rs ${Number(u.balance || 0).toFixed(0)} | <b>Invest:</b> Rs ${u.totalInvest || 0} | <b>Invites:</b> ${u.totalInvites || 0}</p>
-                        ${plansHtml}
-                        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-                            <button onclick="editUserBalance('${uid}')" style="background:#0d47a1;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Edit Balance</button>
-                            ${actionBtn}
-                            <button onclick="deleteUser('${uid}')" style="background:#b71c1c;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Delete</button>
-                        </div>
+                for (let ip in ipGroups) {
+                    let usersInIp = ipGroups[ip];
+                    let isMultiple = usersInIp.length > 1 && ip !== "Unknown IP";
+                    let ipWarning = isMultiple ? ` <span style="background:red;color:white;padding:2px 5px;border-radius:4px;font-size:10px;">Multiple Accounts (${usersInIp.length})</span>` : "";
+                    
+                    html += `<div style="background:#333; color:white; padding:8px 12px; margin-top:15px; border-radius:5px 5px 0 0; font-weight:bold; font-size:13px; border-bottom:2px solid var(--accent); display:flex; justify-content:space-between; align-items:center;">
+                        <span><i class="fa-solid fa-network-wired"></i> IP: ${ip}</span>
+                        ${ipWarning}
                     </div>`;
+
+                    usersInIp.forEach(u => {
+                        let uid = u.uid;
+                        let blockedStatus = u.isBlocked ? `<span style="color:red; font-weight:bold;">BLOCKED</span>` : `<span style="color:green; font-weight:bold;">ACTIVE</span>`;
+                        let plansHtml = "";
+                        let activePlans = u.activePlans || {};
+                        if (Object.keys(activePlans).length > 0) {
+                            plansHtml += `<div style="margin-top: 8px; padding: 10px; background: #eef2f6; border-radius: 8px; font-size:11px; color:#333;"><b>Active Packages:</b><ul style="margin-left: 15px; margin-top:5px; list-style-type:none; padding-left:0;">`;
+                            for (let k in activePlans) {
+                                let p = activePlans[k];
+                                plansHtml += `<li style="margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; background:white; padding:4px 8px; border-radius:4px; border:1px solid #ddd;"><span><b>${p.name}</b> (Rs ${p.price} | Daily: Rs ${p.daily})</span><button onclick="removeUserPlan('${uid}', '${k}')" style="background:#e53935; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:10px;">Remove</button></li>`;
+                            }
+                            plansHtml += `</ul></div>`;
+                        } else plansHtml += `<p style="font-size:11px; color:#666; margin-top:5px;"><b>Active Packages:</b> None</p>`;
+
+                        let actionBtn = !u.isBlocked ? `<button onclick="promptBlockUser('${uid}')" style="background:orange;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Block</button>` : `<button onclick="unblockUser('${uid}')" style="background:green;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Unblock</button>`;
+
+                        html += `
+                        <div class="user-row" style="color:#222; margin-bottom:5px; border-radius:0 0 5px 5px; border-left:4px solid ${isMultiple ? 'red' : 'var(--primary)'}; border-top:none;">
+                            <p><b>Name:</b> ${u.name || 'Unknown'} (${blockedStatus})</p>
+                            <p><b>Email:</b> ${u.email || u.authEmail || 'N/A'}</p>
+                            <p><b>Phone:</b> ${u.phone || 'Not Bound'} | <b>Pass:</b> ${u.password || 'Hidden'}</p>
+                            <p><b>Bal:</b> Rs ${Number(u.balance || 0).toFixed(0)} | <b>Invest:</b> Rs ${u.totalInvest || 0} | <b>Invites:</b> ${u.totalInvites || 0}</p>
+                            ${plansHtml}
+                            <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                                <button onclick="editUserBalance('${uid}')" style="background:#0d47a1;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Edit Balance</button>
+                                ${actionBtn}
+                                <button onclick="deleteUser('${uid}')" style="background:#b71c1c;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Delete</button>
+                            </div>
+                        </div>`;
+                    });
                 }
                 list.innerHTML = html || "No users found.";
                 document.getElementById('st_users').innerText = totalUsers;
